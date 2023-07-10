@@ -1,0 +1,21 @@
+.fondo {
+  background-image: url("../../../../assets/img/altaProducto.jpg");
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+  .titulo {
+    color: white;
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }
+
+  .boton-ubicacion{
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-top: 15px;
+  }

@@ -1,0 +1,109 @@
+<div class="fondo">
+  <div class="container py-3">
+    <h1 class="titulo text-center text-uppercase py-3 text-white">Cambiar Contraseña</h1>
+  </div>
+    <div class="container align-center">
+        <form [formGroup]="formulario">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <label
+                  for="inputUsuario"
+                  class="form-label text-white"
+                  style="font-size: 1.2rem"
+                  >Ingrese el nombre de usuario</label>
+
+                  <div class="input-group">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <i class="bi bi-person-fill"></i>
+                      </div>
+                    </div>
+                    <input type="text" placeholder="Ingrese su usuario" required="required"
+                      formControlName="usuario"
+                      class="form-control"
+                      [class.is-invalid]="controlUsuario.touched && controlUsuario.hasError('required')"
+                      #inputUsuario
+                    />
+                    <span *ngIf="controlUsuario.touched && controlUsuario.hasError('required')" class="invalid-feedback text fw-semibold">
+                      Usuario es requerido, complete el campo
+                    </span>
+                  </div>
+                   <br>
+                  <label for="inputUsuario"class="form-label text-white text" style="font-size: 1.2rem">DNI</label>
+
+                  <div class="input-group">
+                    <input type="text"placeholder="Ingrese su DNI" required="required" formControlName="dni" class="form-control"
+                      [class.is-invalid]="controlDNI.touched && controlDNI.hasError('required')"/>
+                    <span
+                      *ngIf="controlDNI.touched && controlDNI.hasError('required')"class="invalid-feedback text fw-semibold">
+                      DNI es requerido,complete el campo
+                    </span>
+                  </div>
+                  
+                  <br>
+                  <label
+                  for="inputContrasenia"
+                  class="form-label text-white"
+                  style="font-size: 1.2rem"
+                  >Nueva Contraseña</label
+                >
+                <label class="text-white">Ingrese una contraseña con 8 o mas caracteres</label> 
+                  <div class="input-group">
+                    <div class="input-group-append">
+                      <div class="input-group-text">
+                        <i class="bi bi-key-fill"></i>
+                      </div>
+                    </div>
+                    <input
+                      type="password"
+                      name="p"
+                      placeholder="Ingrese su contraseña"
+                      required="required"
+                      formControlName="contrasenia"
+                      class="form-control"
+                      [class.is-invalid]="
+                        controlContrasenia.touched &&
+                        controlContrasenia.hasError('required')
+                      "
+                      [type]="fieldTextType ? 'text' : 'password'"
+                    />
+                    <div class="input-group-append">
+                      <span class="input-group-text">
+                        <i
+                          class="bi"
+                          [ngClass]="{
+                            'bi-eye-slash-fill': !fieldTextType,
+                            'bi-eye-fill': fieldTextType
+                          }"
+                          (click)="toggleFieldTextType()"
+                        ></i>
+                      </span>
+                    </div>
+                    <span
+                      *ngIf="
+                        controlContrasenia.touched &&
+                        controlContrasenia.hasError('required')
+                      "
+                      class="invalid-feedback text fw-semibold"
+                    >
+                      Contraseña es requerida,complete el campo
+                    </span>
+                  </div>
+
+                  <br>
+                  <button
+                  type="submit"
+                  class="btn btn-primary btn-block btn-large mt-2"
+                  [disabled]="!formulario.valid"
+                  (click)="recuperarClave()"
+                >
+                  Cambiar Contraseña
+                </button>
+
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

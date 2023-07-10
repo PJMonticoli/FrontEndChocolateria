@@ -1,0 +1,127 @@
+<nav class="navbar navbar-expand-lg bg-dark navbar-dark">
+    <div class="container-fluid">
+      <a class="navbar-brand bi bi-house-fill" *ngIf="rol=== 'Admin'" href="#"> AdminOlbap</a>
+      <a class="navbar-brand bi bi-house-fill" *ngIf="rol==='Empleado'" href="#"> EmpleadoOlbap</a>
+      <a class="navbar-brand" href="#" *ngIf="rol === 'Socio' || rol=== 'sinIniciarSesion'">OlbapChocolates</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+
+        <!-- NAVBAR VISIBLE PARA EMPLEADO - ADMIN -->
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="rol=== 'Admin' || rol==='Empleado'">
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-uppercase bi bi-cart4" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Pedidos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="pedido/nuevo">Registrar pedido</a></li>
+              <li><a class="dropdown-item" routerLink="pedido/listado">Listado pedidos</a></li>
+              <li><a class="dropdown-item" routerLink="pedido/pendiente">Listado pedidos pendientes</a></li>
+            </ul>
+          </li>
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-uppercase bi bi-grid" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Productos
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="producto/nuevo">Registrar producto</a></li>
+              <li><a class="dropdown-item" routerLink="producto/listado">Listado productos</a></li>
+            </ul>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-box" aria-current="page" routerLinkActive="active" routerLink="stock/listado"> Stock</a>
+          </li>
+
+
+
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-uppercase bi-people-fill" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Socios
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="socio/nuevo">Registrar socio</a></li>
+              <li><a class="dropdown-item" routerLink="socio/listado">Listado socios</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle text-uppercase bi bi-tag" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Promociones
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="promocion/nuevo">Registrar promoción</a></li>
+              <li><a class="dropdown-item" routerLink="promocion/listado">Listado promociones</a></li>
+              <li><a class="dropdown-item" routerLink='promocion/listado/canjeadas'>Listado promociones canjeadas</a></li>
+            </ul>
+          </li>
+
+          <li class="nav-item dropdown" *ngIf="rol=== 'Admin'">
+            <a class="nav-link dropdown-toggle text-uppercase bi bi-graph-up-arrow" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Reportes
+            </a>
+            <ul class="dropdown-menu">
+              <li><a class="dropdown-item" routerLink="reportes/socios">Reportes de socios</a></li>
+              <li><a class="dropdown-item" routerLink="reportes/productos">Reporte de productos</a></li>
+              <li><a class="dropdown-item" routerLink="ranking/productos">Ranking de productos</a></li>
+              <li><a class="dropdown-item" routerLink="reportes/promociones">Reportes de promociones</a></li>
+              <li><a class="dropdown-item" routerLink="reportes/cobros">Reportes de cobros</a></li>
+            </ul>
+          </li>
+
+        </ul>
+
+
+        <!-- NAVBAR VISIBLE PARA SOCIO -->
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="rol === 'Socio'">
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-house-fill" aria-current="page" routerLinkActive="active" routerLink="home"> Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-cart4" aria-current="page" routerLinkActive="active" routerLink="pedido/nuevo"> Realizar un pedido</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-list-ul" aria-current="page" routerLinkActive="active" routerLink="pedido/propios"> Mis pedidos</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-tag" aria-current="page" routerLinkActive="active" routerLink="promocion/listado/disponibles"> Promociones</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-telephone-fill" aria-current="page" routerLinkActive="active" routerLink="contacto"> Contáctanos</a>
+          </li>
+        </ul>
+
+
+        <!-- NAVBAR VISIBLE PARA USUARIOS SIN INICIAR SESION -->
+
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0" *ngIf="rol === 'sinIniciarSesion'">
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-house-fill" aria-current="page" routerLinkActive="active" routerLink="home"> Inicio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-cart4" aria-current="page" routerLinkActive="active" routerLink="pedido/nuevo"> Realizar un pedido</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-people-fill" aria-current="page" routerLinkActive="active" routerLink="socio/nuevo"> Quiero hacerme socio</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link text-uppercase bi bi-telephone-fill" aria-current="page" routerLinkActive="active" routerLink="contacto"> Contáctanos</a>
+          </li>
+        </ul>
+
+        <button *ngIf="!sesionIniciada" type="button" class="bi bi-person-fill-add btn btn-outline-success ms-3" routerLink="registro"> Registrarme</button>
+        <button *ngIf="!sesionIniciada" type="button" class="bi bi-box-arrow-in-right btn btn-outline-primary ms-3" routerLink="login"> Iniciar Sesión</button>
+        <button *ngIf="sesionIniciada" (click)="cerrarSesion()" type="button" class="bi bi-box-arrow-left btn btn-outline-danger ms-3"> Cerrar Sesión</button>
+      </div>
+    </div>
+  </nav>

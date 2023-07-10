@@ -1,0 +1,113 @@
+<div class="fondo">
+    <div class="container p-5">
+        <h1 class="mb-5 text-center text-uppercase titulo">Registrar Promoción</h1>
+        <form [formGroup]="formulario">
+            <div class="row">
+                <div class="col-md-6 col-sm-8">
+                    <div class="mb-3">
+                        <label for="inputNombre" class="form-label text-white fs-6 text fw-semibold fw-semibold">Nombre</label>
+                        <input type="text" class="form-control" id="inputNombre" formControlName="nombre"
+                        [class.is-invalid]="controlNombre.touched && controlNombre.hasError('required')">
+                        <span *ngIf="controlNombre.touched && controlNombre.hasError('required')" class="invalid-feedback">
+                          Nombre es requerido,complete el campo
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-sm-4">
+                    <div class="mb-3">
+                        <label for="inputPrecioPuntos" class="form-label text-white fs-6 text fw-semibold fw-semibold">Precio puntos</label>
+                        <input type="text" class="form-control" id="inputNombre" formControlName="precioPuntos"
+                        [class.is-invalid]="controlPrecioPuntos.touched && controlPrecioPuntos.hasError('required')">
+                        <span *ngIf="controlPrecioPuntos.touched && controlPrecioPuntos.hasError('required')" class="invalid-feedback">
+                          Precio puntos es requerido,complete el campo
+                        </span>
+                      </div>
+                </div>
+
+            </div>
+
+
+            <div class="row">
+                <div class="col-lg">
+                    <div class="mb-3">
+                        <label class="form-label fs-6 text fw-semibold fw-semibold text-white" for='descripcion'>Descripción</label>
+                        <textarea class="form-control" id="descripcion" rows="2" formControlName="descripcion"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="inputFechaDesde" class="form-label text-white fs-6 text fw-semibold fw-semibold">Fecha desde</label>
+                        <input type="date" class="form-control" id="inputFechaDesde" formControlName="fechaDesde"
+                        [class.is-invalid]="controlFechaDesde.touched && controlFechaDesde.hasError('required')">
+                        <span *ngIf="controlFechaDesde.touched && controlFechaDesde.hasError('required')" class="invalid-feedback">
+                          Fecha es requerida,complete el campo
+                        </span>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="mb-3">
+                        <label for="inputFechaHasta" class="form-label text-white fs-6 text fw-semibold fw-semibold">Fecha desde</label>
+                        <input type="date" class="form-control" id="inputFechaHasta" formControlName="fechaHasta"
+                        [class.is-invalid]="controlFechaHasta.touched && controlFechaHasta.hasError('required')">
+                        <span *ngIf="controlFechaHasta.touched && controlFechaHasta.hasError('required')" class="invalid-feedback">
+                          Fecha es requerida,complete el campo
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="mb-3">
+                            <label for="productos" class="form-label text-uppercase fs-6 text fw-semibold">Seleccionar productos</label>
+                            <select class="form-control form-select" name="productos" id="productos"
+                            (change)="controlCantidad.setValue(1)"
+                            [formControl]="controlProductos">
+                                <option value=0>--Seleccione un producto--</option>
+                                <option *ngFor="let p of productos" [ngValue]="p">
+                                    {{p.nombre}}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+    
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="txtCantidad" class="form-label text-white fs-6 text fw-semibold">Cantidad</label>
+                            <input type='number' name='txtCantidad' id='txtCantidad' 
+                            class='form-control' formControlName="cantidad" value="1" 
+                            style="opacity: 0.8; pointer-events: none;">
+                        </div>                    
+                    </div>
+                    <button class="btn btn-warning mt-4 text fw-semibold" (click)="agregarProducto()">Agregar producto</button>
+                </div>
+
+                <div class="row">
+                    <div class="my-3">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-brown">Productos Seleccionados</li>
+                            <li *ngFor="let detalle of detalles" class="list-group-item d-flex justify-content-between align-items-start">
+                                <span class="badge align-self-center bg-brown rounded-pill">{{detalle.cantidad}}x</span>
+                                <div class="ms-2 me-auto">
+                                    <div class="fw-bold">{{detalle.producto.nombre}}</div>
+                                </div>
+                                <button class="btn btn-close align-self-center ms-2" (click)="quitarProducto(detalle)"></button>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+
+            
+          </form>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+              <button type="submit" class="btn btn-success ms-2 mt-2 text fw-semibold" (click)="registrar()">Registrar promoción</button>
+              <button type="button" class="btn btn-danger ms-2 mt-2 text fw-semibold" routerLink="/home">Cancelar</button>
+          </div>
+    </div>
+</div>

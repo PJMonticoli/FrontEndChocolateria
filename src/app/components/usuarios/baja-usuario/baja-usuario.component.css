@@ -1,0 +1,5 @@
+.btn-warning.disabled,
+.btn-warning[disabled] {
+  filter: none;
+  background-color: gray;
+}

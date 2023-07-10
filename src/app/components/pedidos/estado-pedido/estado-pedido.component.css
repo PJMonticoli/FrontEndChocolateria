@@ -1,0 +1,8 @@
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}

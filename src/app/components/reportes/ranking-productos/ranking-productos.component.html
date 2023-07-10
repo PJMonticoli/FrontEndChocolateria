@@ -1,0 +1,122 @@
+<div class="fondo">
+    <div class="container p-3" id="htmlData">
+      <h1 class="titulo my-3 text-center text-uppercase">Ranking de Productos</h1>
+      <form [formGroup]="formulario">
+        <div class="form-group">
+          <div class="row">
+            <div class="col-md-4">
+              <div class="mb-3">
+                <label for="inputFechaDesde" class="form-label fw-semibold">Fecha desde</label>
+                  <input type="date" class="form-control" id="inputFechaDesde" formControlName="fechaDesde"
+                    [class.is-invalid]="controlFechaDesde.touched &&controlFechaDesde.hasError('required')" />
+                            <p *ngIf=" controlFechaDesde.touched && controlFechaDesde.hasError('required')" class="invalid-feedback">
+                                Ingresar fecha desde</p>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="inputFechaDesde" class="form-label fw-semibold">Fecha hasta</label>
+                          <input [min]="formulario.controls['fechaDesde'].value" type="date" class="form-control" id="inputFechaDesde" formControlName="fechaHasta"
+                              [class.is-invalid]="controlFechaHasta.touched && controlFechaHasta.hasError('required')" />
+                          <p *ngIf="controlFechaHasta.touched && controlFechaHasta.hasError('required')
+                              " class="invalid-feedback">
+                              Ingresar fecha hasta
+                          </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <br />
+                        <button class="btn btn-primary my-2" (click)="solicitarReporte()">
+                        Solicitar reporte
+                        </button>
+                        <button [disabled]="!visibilidadReporte" class="btn btn-outline-danger ms-2 my-2" (click)="descargarPDF()"><i class="bi bi-file-earmark-pdf-fill"> Descargar PDF</i></button>
+                    </div>
+                    </div>
+                </div>
+          </form>
+  
+          <div class="container" *ngIf="visibilidadReporte">
+            <div class="row">
+              <div class="col-sm-3">
+                <div class="input-group mb-2">
+                  <input type="text" class="form-control" placeholder="Buscar producto" #txtSearch (keyup)="onSearchProduct(txtSearch.value)">
+                  <span class="input-group-text"><i class="bi bi-search"></i></span>
+                </div>
+              </div>
+            </div> 
+            <div class="row">
+              <div class="col">
+                <h5 class="text-center text-uppercase">Ranking de unidades vendidas por producto</h5>
+                <div class="table-responsive table-container">
+                  <table class="table table-dark table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">Productos</th>
+                        <th scope="col">Cantidad de unidades</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let res of resultadoCantidad | filtroReporteCantidad : page : search">
+                        <td>{{ res.nombre }}</td>  
+                        <td>{{ res.cantidad }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+          
+              <div class="col-md-6 col-sm-12">
+                <div class="row">
+                  <h5 class="text-center text-uppercase">Promedio de unidades vendidas por pedido</h5>
+                  <div class="table-responsive table-container">
+                    <table class="table table-dark table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">Productos</th>
+                          <th scope="col">Promedio por pedido</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr *ngFor="let res of resultadoPromedio | filtroReporte : pageProm : search">
+                          <td>{{ res.nombre }}</td>  
+                          <td>{{ res.promedio }}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        
+          
+            <div class="container-fluid mt-2" *ngIf="visibilidadReporte">
+              <div class="row" style="background-color: white;">
+                <h3 class="text-center text-uppercase">Gráficos</h3>
+                <div class="col-md-6 col-sm-12">
+                  <div class="row text-center">              
+                    <h5>Ranking de unidades vendidas por producto</h5>
+                  </div>
+                  <div class="row justify-content-center">              
+                    <div class="chart-container overflow-auto">
+                      <canvas baseChart type="bar" [data]="datosCantidad"></canvas>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-6 col-sm-12">              
+                  <div class="row text-center">              
+                    <h5>Promedio de unidades vendidas por pedido y producto</h5>
+                  </div>
+                  <div class="row justify-content-center">              
+                    <div class="chart-container overflow-auto">
+                      <canvas baseChart type="bar" [data]="datosPromedio"></canvas>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+    </div>
+  </div>
+  

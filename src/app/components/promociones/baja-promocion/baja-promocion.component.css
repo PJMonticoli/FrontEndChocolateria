@@ -1,0 +1,12 @@
+.btn-danger.disabled,
+.btn-danger[disabled] {
+  filter: none;
+  background-color: gray;
+}
+
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger.active{
+    filter: none;
+    background-color: #4ea15c;
+}

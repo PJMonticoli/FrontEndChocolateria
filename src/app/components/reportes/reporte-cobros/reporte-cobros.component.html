@@ -1,0 +1,91 @@
+<div class="fondo">
+    <div class="container p-3" id="htmlData">
+        <h1 class="titulo my-3 text-center text-uppercase">Reportes de Cobros</h1>
+            <form [formGroup]="formulario">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="inputFechaDesde" class="form-label fw-semibold">Fecha desde</label>
+                            <input type="date" class="form-control" id="inputFechaDesde" formControlName="fechaDesde"
+                                [class.is-invalid]="
+                                controlFechaDesde.touched &&
+                                controlFechaDesde.hasError('required')
+                                " />
+                            <p *ngIf="
+                                controlFechaDesde.touched &&
+                                controlFechaDesde.hasError('required')
+                                " class="invalid-feedback">
+                                Ingresar fecha desde
+                            </p>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="inputFechaDesde" class="form-label fw-semibold">Fecha hasta</label>
+                          <input [min]="formulario.controls['fechaDesde'].value" type="date" class="form-control" id="inputFechaDesde" formControlName="fechaHasta"
+                              [class.is-invalid]="
+                              controlFechaHasta.touched &&
+                              controlFechaHasta.hasError('required')
+                              " />
+                          <p *ngIf="
+                              controlFechaHasta.touched &&
+                              controlFechaHasta.hasError('required')
+                              " class="invalid-feedback">
+                              Ingresar fecha hasta
+                          </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <br />
+                        <button class="btn btn-primary my-2" (click)="solicitarReporte()">
+                        Solicitar reporte
+                        </button>
+                        <button [disabled]="!visibilidadReporte" class="btn btn-outline-danger ms-2 my-2" (click)="descargarPDF()"><i class="bi bi-file-earmark-pdf-fill"> Descargar PDF</i></button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+      
+            <div class="container-fluid" *ngIf="visibilidadReporte">
+                <div class="row">
+                    <div class="col p-5">
+                        <h3 class="text-center text-uppercase">Listado de cobros realizados por tipo de pago</h3> 
+                          <div class="table-responsive table-container">
+                              <table class="table table-dark table-hover mt-2">
+                                <thead>
+                                  <tr>
+                                    <th scope="col">Tipo de cobro</th>
+                                    <th scope="col">Cantidad de cobros</th>
+                                    <th scope="col">Total cobrado</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                    <tr *ngFor="let res of resultadoReporte">
+                                        <td>{{ res.nombre }}</td>
+                                        <td>{{ res.cantidadCobros }}</td>
+                                        <td>$ {{ res.totalCobro }}</td>
+                                      </tr>
+                                </tbody>
+                              </table>
+                          </div>
+                      </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-lg-12 p-5">
+                          <div class="row text-center">
+                            <h4 class="fw-semibold text-center text-uppercase">Gráfico de cobros</h4>
+                            <p class="fw-semibold">Monto Total cobrado por cada tipo de pago</p>
+                          </div>
+                          <div class="row justify-content-center">
+                  
+                         <div style="max-width: 700px; max-height: 300px; background-color: white;">
+                            <canvas baseChart type="bar" [data]="datos"></canvas>
+                         </div>
+                        </div>
+                    </div>
+                </div>
+      </div>
+</div>

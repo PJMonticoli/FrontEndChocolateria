@@ -1,0 +1,14 @@
+.fondo {
+    background-image: url("../../../../../assets/img/altaPromocion.jpg");
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  .titulo {
+    color:white;
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }

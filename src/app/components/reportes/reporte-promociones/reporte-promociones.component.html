@@ -1,0 +1,115 @@
+<div class="fondo">
+    <div class="container p-3" id="htmlData">
+        <h1 class="titulo my-3 text-center text-uppercase">Reportes de Promociones</h1>
+            <form [formGroup]="formulario">
+            <div class="form-group">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                            <label for="inputFechaDesde" class="form-label fw-semibold">Fecha desde</label>
+                            <input type="date" class="form-control" id="inputFechaDesde" formControlName="fechaDesde"
+                                [class.is-invalid]="
+                                controlFechaDesde.touched &&
+                                controlFechaDesde.hasError('required')
+                                " />
+                            <p *ngIf="
+                                controlFechaDesde.touched &&
+                                controlFechaDesde.hasError('required')
+                                " class="invalid-feedback">
+                                Ingresar fecha desde
+                            </p>
+                        </div>
+                    </div>
+        
+                    <div class="col-md-4">
+                        <div class="mb-3">
+                          <label for="inputFechaDesde" class="form-label fw-semibold">Fecha hasta</label>
+                          <input [min]="formulario.controls['fechaDesde'].value" type="date" class="form-control" id="inputFechaDesde" formControlName="fechaHasta"
+                              [class.is-invalid]="
+                              controlFechaHasta.touched &&
+                              controlFechaHasta.hasError('required')
+                              " />
+                          <p *ngIf="
+                              controlFechaHasta.touched &&
+                              controlFechaHasta.hasError('required')
+                              " class="invalid-feedback">
+                              Ingresar fecha hasta
+                          </p>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <br />
+                        <button class="btn btn-primary my-2" (click)="solicitarReporte()">
+                        Solicitar reporte
+                        </button>
+                        <button [disabled]="!visibilidadReporte" class="btn btn-outline-danger ms-2 my-2" (click)="descargarPDF()"><i class="bi bi-file-earmark-pdf-fill"> Descargar PDF</i></button>
+                    </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="container" *ngIf="visibilidadReporte">
+                <div class="row">
+                    <div class="col p-3">
+                        <h3 class="fw-semibold text-center text-uppercase">Cantidad de veces que se canjeo cada promoción</h3>
+                          <div class="table-container">
+                                       
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="input-group mb-2 mt-2">
+                                        <input type="text" class="form-control" placeholder="Buscar promoción" #txtSearch (keyup)="onSearchProduct(txtSearch.value)">
+                                        <span class="input-group-text"><i class="bi bi-search"></i></span>
+                                      </div>
+                                </div>
+                              </div>
+                            <div class="botones">
+                                <button [disabled]="!visibilidadReporte" class="btn btn-danger ms-2 my-2" (click)="descargarTablaPDF()"><i class="bi bi-download"> Tabla PDF</i></button>
+                            </div>
+                            <table id="tablaCantidad" class="table table-dark table-hover mt-2">
+                                <thead>
+                                <tr>
+                                    <th scope="col">Promoción</th>
+                                    <th scope="col">Descripción</th>
+                                    <th scope="col">Cantidad de veces canjeada</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr *ngFor="let r of resultadoReporte | filtroReportePromocion: page : search">
+                                    <td>{{ r.nombrePromocion }}</td>
+                                    <td>{{ r.descripcion }}</td>
+                                    <td>{{ r.cantidadCanjeos }}</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="botones">
+                                <button class="btn btn-primary bi bi-arrow-left" (click)="prevPage()"></button>
+                                &nbsp;
+                                <button class="btn btn-primary bi bi-arrow-right" (click)="nextPage()"
+                                [disabled]="(resultadoReporte | filtroReportePromocion: page : search ).length < 6 || 
+                                                (resultadoReporte | filtroReportePromocion: page+6 : search).length === 0"
+                                  ></button>
+                            </div>
+                          </div>
+                      </div>
+                </div>
+
+                <div class="row">
+                    <div class="row">
+                        <div class="col-lg-12 p-5">
+                          <div class="row text-center">
+                            <h4 class="fw-semibold text-center text-uppercase">Gráfico de promociones</h4>
+                            <p class="fw-semibold">Cantidad de veces que se canjeo cada promoción
+                            </p>
+                          </div>
+                          <div class="row justify-content-center">
+                  
+                            <div style="max-width: 700px; max-height: 350px; background-color: white;">
+                              <canvas baseChart type="bar" [data]="datos"></canvas>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                </div>
+          </div>
+</div>
+

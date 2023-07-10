@@ -1,0 +1,100 @@
+a {
+  text-decoration: none;
+  color: white;
+}
+
+.fondo {
+  animation: cambiar-imagen 45s linear infinite;
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+@keyframes cambiar-imagen {
+  0% {
+    background-image: url('../../../assets/img/home.jpg');
+  }
+  20% {
+    background-image: url('../../../assets/img/home1.jpg');
+  }
+  40% {
+    background-image: url('../../../assets/img/home2.jpg');
+  }
+  60% {
+    background-image: url('../../../assets/img/home3.jpg');
+  }
+  80% {
+    background-image: url('../../../assets/img/home4.jpg');
+  }
+  100% {
+    background-image: url('../../../assets/img/fondoHome.jfif');
+  }
+}
+
+#titulo-homepage {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  animation-name: fadeIn;
+  animation-duration: 6.5s;
+  animation-fill-mode: forwards;
+  opacity: 0;
+  margin-bottom: 20px;
+  position: static;
+  transform: none;
+}
+@media (max-width: 576px) {
+  #titulo-homepage {
+    position: static;
+    transform: none;
+    text-align: center;
+    margin-bottom: 20px; /* Agrega un margen inferior para separarlo del navbar toggle */
+  }
+}
+#titulo-homepage h1 {
+  font-family: "Lora", serif;
+  font-size: 4rem;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  background-size: contain;
+  background-position: center;
+  background-repeat: no-repeat;
+  -webkit-background-clip: text;
+  background-clip: text;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 576px) {
+  #titulo-homepage h1 {
+    font-size: 2.5rem;
+  }
+}
+
+.texto-personalizado{
+  background: #9b7239;
+  color: #ffffd5;
+  padding: 0 10px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+}
+
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary.disabled,
+.btn-secondary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}

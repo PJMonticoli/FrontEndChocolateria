@@ -1,0 +1,109 @@
+<div class="fondo">
+    <div class="container p-5">
+        <h1 class="mb-5 text-center text-uppercase titulo">{{!isEdit ? 'Registrar Producto' : 'Editar Producto'}}</h1>
+          <form [formGroup]="formulario" enctype="multipart/form-data" method="post" action="/productos/">
+      
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="mb-3">
+                    <label for="nombre" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white ">Nombre</label>
+                    <input type="text" class="form-control" id="nombre" formControlName="nombre"                    
+                    [class.is-invalid]="controlNombre.touched && controlNombre.hasError('required')">
+                    <span *ngIf="controlNombre.touched && controlNombre.hasError('required')"
+                    class="invalid-feedback">
+                      Nombre es requerido
+                    </span>
+                  </div>
+                </div>
+                
+                <div class="col-sm-2">
+                  <div class="mb-3">
+                    <label for="precio" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Precio</label>
+                    <input type="text" class="form-control" id="precio" formControlName="precio"
+                    [class.is-invalid]="controlPrecio.touched&&controlPrecio.hasError('required')">
+                    <span *ngIf="controlPrecio.touched && controlPrecio.hasError('required')"
+                    class="invalid-feedback">
+                      Precio es requerido
+                    </span>
+                  </div>
+                </div>
+      
+      
+                <div class="col-sm-2">
+                  <div class="mb-3">
+                    <label for="puntosGanados" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Puntos</label>
+                    <input type="text" class="form-control" id="puntosGanados" formControlName="puntosGanados"
+                    [class.is-invalid]="controlPuntos.touched&&controlPuntos.hasError('required')"
+                    >
+                    <span *ngIf="controlPuntos.touched && controlPuntos.hasError('required')"
+                    class="invalid-feedback">
+                      Puntos es requerido
+                    </span>
+                  </div>
+                </div>
+      
+              </div>
+            </div>
+      
+            
+                <div class="mb-3">
+                  <label for="descripcion" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Descripcion</label>
+                  <textarea class="form-control" id="descripcion" rows="2" formControlName="descripcion"></textarea>
+                </div>
+                <div class="mb-3">
+                  <label for="observaciones" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Observaciones</label>
+                  <textarea class="form-control" id="observaciones" rows="2" formControlName="observaciones"></textarea>
+                </div>
+      
+
+                <div class="form-group" *ngIf="isEdit">
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="mb-3 form-check">
+                        <input #activo type="checkbox" name="inputActivo" class="form-check-input" id="inputActivo" formControlName="activo"
+                        (change)="cambioActivoCheck(activo.checked)"/>
+                        <label class="form-check-label fs-6 text fw-semibold text-white fw-semibold text-white" for="inputActivo">Activo</label>
+                      </div>
+                      <div class="mb-3 form-check">
+                        <input #disponible type="checkbox" name="inputDisponible" class="form-check-input" id="inputDisponible" formControlName="disponible" 
+                        (change)="cambioDisponibleCheck(disponible.checked)"/>
+                        <label class="form-check-label fs-6 text fw-semibold text-white fw-semibold text-white" for="inputDisponible">Disponible</label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <div class="card">
+                        <div class="card-body">
+                            <div class="form-group">
+                              <input type="file" class="form-control form-control-sm" accept="image/*" name="file"
+                                (change)="selectImage($event)" id="urlImagen"> <br>
+                              <button type="button" class="btn btn-outline-success bi bi-upload" (click)="onSubmit()" [disabled]="!flag"> Subir imagen</button>
+                            </div>
+                        </div>
+                      </div>
+              
+                    </div>
+                    <div class="col-md-4">
+                      <div class="card">
+                        <button *ngIf="flag==true" type="button" (click)="deleteImg()" class="btn btn-danger bi bi-trash3 boton-ubicacion"></button>
+                        <div class="card-body">                
+                          <img class="img-fluid" [src]="urlImagen" style="max-width: 100%; max-height: 268px;">
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2">
+                  <button type="submit" class="btn btn-primary ms-2" *ngIf="!isEdit" (click)="registrar()">Registrar</button>
+                  <button type="submit" class="btn btn-success ms-2" *ngIf="isEdit" (click)="editar()" [disabled]="!formulario.valid">Editar</button>
+                  <button type="button" class="btn btn-danger ms-2" routerLink="/home">Cancelar</button>
+                </div>
+            </form>
+      </div>
+</div>

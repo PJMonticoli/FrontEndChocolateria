@@ -1,0 +1,27 @@
+.btn-danger:hover,
+.btn-danger:active,
+.btn-danger.active,
+.btn-danger.disabled,
+.btn-danger[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}
+.btn-block {
+  width: 100%;
+  display: block;
+}
+.titulo {
+    font-family: "Lora", serif;
+    font-weight: 700;
+    color: white;
+  }
+  
+  .fondo {
+    background-image: url("../../../assets/img/notfound.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+  }

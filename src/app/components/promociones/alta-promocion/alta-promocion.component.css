@@ -1,0 +1,68 @@
+.fondo {
+    background-image: url(../../../../assets/img/altaPromocion.jpg);
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    min-height: 95vh;
+  }
+
+  .titulo {
+    color:white;
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }
+
+  .list-group-item-brown{
+    background-color: #F5DEB3;
+  }
+  
+  .bg-brown {
+    background-color: #F5DEB3;
+    color: #000000;
+  }
+
+  .btn-primary {  
+    background-color: #F5DEB3;
+    background-image: -moz-linear-gradient(top, #F5DEB3, #F5DEB3);
+    background-image: -ms-linear-gradient(top, #F5DEB3, #F5DEB3);
+    background-image: -webkit-gradient(
+      linear,
+      0 0,
+      0 100%,
+      from(#878c8f),
+      to(#4a77d4)
+    );
+    background-image: -webkit-linear-gradient(top, #F5DEB3, #F5DEB3);
+    background-image: -o-linear-gradient(top, #F5DEB3, #F5DEB3);
+    background-image: linear-gradient(top, #F5DEB3, #F5DEB3);
+    background-repeat: repeat-x;
+    filter: progid:dximagetransform.microsoft.gradient(startColorstr=#F5DEB3, endColorstr=#F5DEB3, GradientType=0);
+    border: 1px solid #000000;
+  }
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.active,
+  .btn-primary.disabled,
+  .btn-primary[disabled] {
+    filter: none;
+    background-color: #4ea15c;
+  }
+  .btn-block {
+    width: 100%;
+    display: block;
+  }
+  
+  * {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -ms-box-sizing: border-box;
+    -o-box-sizing: border-box;
+    box-sizing: border-box;
+  }
+  
+  html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+  }
+  

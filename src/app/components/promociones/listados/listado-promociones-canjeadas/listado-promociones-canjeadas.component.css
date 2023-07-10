@@ -1,0 +1,20 @@
+.fondo {
+    background-image: url("../../../../../../../ps/src/assets/img/listadoPromociones.jpg");
+    background-size: cover;
+    width: 100%;
+    background-position: center;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.active,
+  .btn-primary.disabled,
+  .btn-primary[disabled] {
+    filter: none;
+    background-color: #4ea15c;
+  }
+  .titulo{
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }

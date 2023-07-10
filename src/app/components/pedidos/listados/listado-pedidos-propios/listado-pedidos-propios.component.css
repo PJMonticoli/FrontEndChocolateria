@@ -1,0 +1,34 @@
+.fondo {
+    background-image: url("../../../../../assets/img/listadoPedidos.jpg");
+    background-size: cover;
+    /* height: 100%; */
+    width: 100%;
+    background-position: center;
+    min-height: 100vh;
+  }
+
+  .titulo {
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }
+
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.active,
+  .btn-primary.disabled,
+  .btn-primary[disabled] {
+    filter: none;
+    background-color: #4ea15c;
+  }
+
+  .estado-creado {
+    color: yellow;
+  }
+  
+  .estado-pagado {
+    color: green;
+  }
+  
+  .estado-cancelado {
+    color: red;
+  }

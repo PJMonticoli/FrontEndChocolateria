@@ -1,0 +1,15 @@
+.fondo {
+    background-image: url("../../../../assets/img/altaSocio.jpg");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: center;
+    width: 100%;
+    height: auto;
+    min-height: 95vh;
+  }
+
+  .titulo {
+    color: #000000;
+    font-family: "Lora", serif;
+    font-weight: 700;
+  }

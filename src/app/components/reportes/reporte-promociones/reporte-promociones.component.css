@@ -1,0 +1,30 @@
+.fondo {
+  background-image: url("../../../../../src/assets/img/fondoReporte.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: auto;
+  min-height: 95vh;
+}
+
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+}
+
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}
+
+.botones{
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  margin-top: 10px;
+}

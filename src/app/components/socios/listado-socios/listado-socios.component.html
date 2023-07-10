@@ -1,0 +1,52 @@
+   <div class="fondo">
+    <div class="container">
+
+      <h1 class="text-center text-uppercase titulo text-white py-3">
+        Listado de Socios
+      </h1>
+      
+      <div class="row">
+        <div class="col-sm-4">
+          <div class="input-group mb-2">
+            <input type="text" class="form-control" placeholder="Buscar socio por dni-nombre y/o apellido" #txtSearch (keyup)="onSearch(txtSearch.value)">
+            <span class="input-group-text"><i class="bi bi-search"></i></span>
+          </div>
+        </div>
+      </div>    
+
+      <button class="btn btn-primary" (click)="prevPage()">Anteriores</button>
+        &nbsp;
+        <button class="btn btn-primary" (click)="nextPage()"
+        [disabled]="(listado | filtroSocio: page : search ).length < 5 || 
+                        (listado | filtroSocio: page+5 : search).length === 0"
+          >Siguientes</button>
+
+
+      <div class="table-responsive-sm">
+        <table class="table table-dark table-hover mt-2">
+          <thead>
+            <tr>
+              <th scope="col">Nombre</th>
+              <th scope="col">Apellido</th>
+              <th scope="col">DNI</th>
+              <th scope="col" class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let s of listado | filtroSocio: page : search">
+              <td>{{s.nombre}}</td>
+              <td>{{s.apellido}}</td>
+              <td>{{s.dni}}</td>
+              <td class="text-center">
+                <app-detalles-socio [socio]="s"></app-detalles-socio>
+                <app-baja-socio ngClass="ms-2" [socio]="s" (onEliminado)="cargarTabla()" [deshabilitado]="s.fechaBaja!==null"></app-baja-socio>
+                <app-baja-usuario ngClass="ms-2" [idUsuario]="s.idUsuario" (onEliminado)="cargarTabla()" [deshabilitado]="!s.idUsuario || s.fechaBaja==null"></app-baja-usuario>
+                <button class="btn btn-success bi bi-pencil ms-2" [routerLink]="['/socio/nuevo',s.id]"> Editar</button>
+              </td>
+            </tr>
+          </tbody>  
+        </table>
+      </div>
+
+    </div>
+  </div>

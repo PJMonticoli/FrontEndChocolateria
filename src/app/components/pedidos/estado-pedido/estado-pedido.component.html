@@ -1,0 +1,46 @@
+<button class="btn btn-primary" data-bs-toggle="modal" attr.data-bs-target="#modalEstado{{pedido.id}}" 
+  (click)="getEstados()" [disabled]="pedido.estado === 'Cancelado'">Actualizar</button>
+
+<!-- Modal -->
+<div class="modal fade" [id]="'modalEstado' + pedido.id" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 900px;">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title fs-4 text text" id="exampleModalLabel" style="color: black;">Actualizar el estado del pedido</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <h4 class="mb-3"></h4>
+
+                <form [formGroup]="formulario">
+                    <div class="form-group">
+                        <div class="mb-3">
+                            <label for="selectTipoPago" class="form-label fs-4 text" style="color:black" >Estado</label>
+                            <select id="selectTipoPago" class="form-select" formControlName="estadoPedido"
+                            [class.is-invalid]="controlEstado.touched && controlEstado.hasError('required')"
+                            *ngIf="estadosPedido && estadosPedido.length > 0">
+                            <option *ngFor="let estado of estadosPedido" [ngValue]="estado" class="fs-6 text">{{ estado.nombre }}</option>
+                            </select>
+
+                            <select id="selectTipoPago" class="form-select" formControlName="estadoPedido"
+                            [class.is-invalid]="controlEstado.touched && controlEstado.hasError('required')"
+                            *ngIf="!estadosPedido || estadosPedido.length === 0">
+                            <option value="Cancelado" class="fs-6 text">Cancelado</option>
+                          </select>                                         
+                            <span class="invalid-feedback">
+                                Estado es requerido
+                            </span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal"
+                    (click)="modificoEstado()">Actualizar</button>
+                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+

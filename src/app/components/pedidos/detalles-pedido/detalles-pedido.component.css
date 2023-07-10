@@ -1,0 +1,24 @@
+.btn-secondary {
+  background-color: #9498a0;
+  background-image: -moz-linear-gradient(top, #6eb6de, #9498a0);
+  background-image: -ms-linear-gradient(top, #6eb6de, #9498a0);
+  background-image: -webkit-gradient(
+    linear,
+    0 0,
+    0 100%,
+    from(#e7eaec),
+    to(#4ad451)
+  );
+  background-image: -webkit-linear-gradient(top, #9498a0, #9498a0);
+  background-image: -o-linear-gradient(top, #6eb6de, #9498a0);
+  background-image: linear-gradient(top, #6eb6de, #9498a0);
+  background-repeat: repeat-x;
+}
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary.disabled,
+.btn-secondary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}

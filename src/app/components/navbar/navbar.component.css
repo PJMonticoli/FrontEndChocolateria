@@ -1,0 +1,8 @@
+   .navbar ul li {
+    margin: 0;
+  } 
+  
+  
+  .navbar ul li a:hover {
+    color: skyblue;
+  }

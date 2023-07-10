@@ -1,0 +1,8 @@
+.btn-secondary:hover,
+.btn-secondary:active,
+.btn-secondary.active,
+.btn-secondary.disabled,
+.btn-secondary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}
