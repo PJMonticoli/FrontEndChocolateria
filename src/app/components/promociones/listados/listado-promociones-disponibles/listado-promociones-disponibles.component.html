@@ -1,47 +1,64 @@
 <div class="fondo">
-  <div class="container">
-
-    <h1 class="text-center text-uppercase titulo text-white py-5">
-      Promociones disponibles
-    </h1>
-    <div class="row">
-      <div class="col-sm-4">
-        <input type="text" class="form-control mb-2" placeholder="Buscar promoción por nombre" #txtSearch
-          (keyup)="onSearch(txtSearch.value)">
+  <div class="container py-4">
+    <!-- Card principal -->
+    <div class="card bg-dark bg-opacity-75 shadow-lg border-0 rounded-3">
+      <!-- Cabecera del Card -->
+      <div class="card-header bg-gradient">
+        <h1 class="text-center text-uppercase titulo text-white py-2 mb-0">
+          Promociones Canjeadas
+        </h1>
       </div>
+      <!-- Cuerpo del Card -->
+      <div class="card-body">
+        <!-- Barra de búsqueda y paginación -->
+        <div class="row align-items-center mb-3">
+          <!-- Búsqueda -->
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Buscar promoción por nombre y/o socio" #txtSearch
+                (keyup)="onSearch(txtSearch.value)">
+              <span class="input-group-text text-white">
+                <i class="bi bi-search"></i>
+              </span>
+            </div>
+          </div>
+          <!-- Paginación -->
+          <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            <button class="btn btn-secondary rounded-pill me-2" (click)="prevPage()">
+              <i class="bi bi-arrow-left-circle me-1"></i>
+            </button>
+            <button class="btn btn-secondary rounded-pill" (click)="nextPage()"
+              [disabled]="(listado | filtroCanjeadas: page : search).length < 5 || (listado | filtroCanjeadas: page+5 : search).length === 0">
+              <i class="bi bi-arrow-right-circle ms-1"></i>
+            </button>
+          </div>
+        </div>
+        <!-- Tabla -->
+        <div class="table-responsive">
+          <table class="table table-dark table-hover border-secondary mt-2">
+            <thead class="table-primary text-dark">
+              <tr>
+                <th scope="col">Socio</th>
+                <th scope="col">Promoción</th>
+                <th scope="col">Fecha de canjeo</th>
+                <th scope="col">Acción</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let p of listado | filtroCanjeadas: page : search">
+                <td class="align-middle">{{ p.socio }}</td>
+                <td class="align-middle">{{ p.promocion }}</td>
+                <td class="align-middle">{{ p.fechaCanjeada | date:'mediumDate':'UTC' }}</td>
+                <td class="text-center">
+                  <app-detalles-promocion-canjeada [promocion]="p"></app-detalles-promocion-canjeada>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <!-- Fin Card Body -->
     </div>
-
-    <button class="btn btn-primary" (click)="prevPage()">Anteriores</button>
-    &nbsp;
-    <button class="btn btn-primary" (click)="nextPage()" [disabled]="(listado | filtroPromocion: page : search ).length < 5 || 
-                        (listado | filtroPromocion: page+5 : search).length === 0">Siguientes</button>
-
-    <h4 class="text-white puntos text-uppercase">Puntos disponibles: {{this.puntos}}</h4>
-    <div class="table-responsive-sm">
-      <table class="table table-dark table-hover mt-2">
-        <thead>
-          <tr class="text-center">
-            <th scope="col">Nombre</th>
-            <th scope="col">Descripción</th>
-            <th scope="col">Precio puntos</th>
-            <th scope="col">Valido hasta</th>
-            <th scope="col">Canjear promocíon</th>
-          </tr>
-        </thead>
-        <tbody class="text-center">
-          <tr *ngFor="let p of listado | filtroPromocion : page : search">
-            <td>{{ p.nombre }}</td>
-            <td>{{ p.descripcion }}</td>
-            <td>{{ p.precioPuntos }}</td>
-            <td>{{ p.fechaHasta | date:'mediumDate':'UTC'}}</td>
-            <td>
-              <app-canjear (onCanjear)="cargarDatos()" [promocion]="p"
-                [deshabilitado]="puntos < p.precioPuntos"></app-canjear>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
+    <!-- Fin Card principal -->
   </div>
 </div>

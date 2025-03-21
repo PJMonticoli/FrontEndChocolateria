@@ -8,13 +8,13 @@ export class FiltroSocioPipe implements PipeTransform {
 
   transform(socios: Socio[], page : number=0, search : string): Socio[] {
     if(search.length=== 0){
-      return socios.slice(page, page+6);
+      return socios.slice(page, page+8);
     }
     const sociosFiltrados = socios.filter(soc=> soc.dni.toString().includes(search) || 
     soc.apellido.normalize('NFD').toLowerCase()
-    .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1").includes(search)
+    .replace(/([^n\u0300-\u038f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1").includes(search)
     || soc.nombre.normalize('NFD').toLowerCase()
     .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1").includes(search));
-    return sociosFiltrados.slice(page, page+6);
+    return sociosFiltrados.slice(page, page+8);
   }
 }

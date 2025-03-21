@@ -1,52 +1,78 @@
-   <div class="fondo">
-    <div class="container">
-
-      <h1 class="text-center text-uppercase titulo text-white py-3">
-        Listado de Socios
-      </h1>
-      
-      <div class="row">
-        <div class="col-sm-4">
-          <div class="input-group mb-2">
-            <input type="text" class="form-control" placeholder="Buscar socio por dni-nombre y/o apellido" #txtSearch (keyup)="onSearch(txtSearch.value)">
-            <span class="input-group-text"><i class="bi bi-search"></i></span>
-          </div>
-        </div>
-      </div>    
-
-      <button class="btn btn-primary" (click)="prevPage()">Anteriores</button>
-        &nbsp;
-        <button class="btn btn-primary" (click)="nextPage()"
-        [disabled]="(listado | filtroSocio: page : search ).length < 5 || 
-                        (listado | filtroSocio: page+5 : search).length === 0"
-          >Siguientes</button>
-
-
-      <div class="table-responsive-sm">
-        <table class="table table-dark table-hover mt-2">
-          <thead>
-            <tr>
-              <th scope="col">Nombre</th>
-              <th scope="col">Apellido</th>
-              <th scope="col">DNI</th>
-              <th scope="col" class="text-center">Acciones</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr *ngFor="let s of listado | filtroSocio: page : search">
-              <td>{{s.nombre}}</td>
-              <td>{{s.apellido}}</td>
-              <td>{{s.dni}}</td>
-              <td class="text-center">
-                <app-detalles-socio [socio]="s"></app-detalles-socio>
-                <app-baja-socio ngClass="ms-2" [socio]="s" (onEliminado)="cargarTabla()" [deshabilitado]="s.fechaBaja!==null"></app-baja-socio>
-                <app-baja-usuario ngClass="ms-2" [idUsuario]="s.idUsuario" (onEliminado)="cargarTabla()" [deshabilitado]="!s.idUsuario || s.fechaBaja==null"></app-baja-usuario>
-                <button class="btn btn-success bi bi-pencil ms-2" [routerLink]="['/socio/nuevo',s.id]"> Editar</button>
-              </td>
-            </tr>
-          </tbody>  
-        </table>
+<div class="fondo">
+  <div class="container py-4">
+    <!-- Card principal -->
+    <div class="card bg-dark bg-opacity-75 shadow-lg border-0 rounded-3">
+      <!-- Cabecera con título -->
+      <div class="card-header bg-gradient">
+        <h1 class="text-center text-uppercase titulo text-white py-2 mb-0">
+          Listado de Socios
+        </h1>
       </div>
 
+      <!-- Cuerpo del card -->
+      <div class="card-body">
+        <!-- Barra de búsqueda y paginación -->
+        <div class="row align-items-center mb-3">
+          <!-- Búsqueda -->
+          <div class="col-md-6">
+            <div class="input-group">
+              <input type="text" class="form-control" placeholder="Buscar socio por dni-nombre y/o apellido" #txtSearch
+                (keyup)="onSearch(txtSearch.value)" />
+              <span class="input-group-text text-white">
+                <i class="bi bi-search"></i>
+              </span>
+            </div>
+          </div>
+          <!-- Paginación -->
+          <div class="col-md-6 text-md-end mt-3 mt-md-0">
+            <button class="btn btn-secondary rounded-pill me-2" (click)="prevPage()">
+              <i class="bi bi-arrow-left-circle me-1"></i>
+            </button>
+            <button class="btn btn-secondary rounded-pill" (click)="nextPage()" [disabled]="(listado | filtroSocio: page : search).length < 5 ||
+                          (listado | filtroSocio: page+5 : search).length === 0">
+              <i class="bi bi-arrow-right-circle ms-1"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Tabla de socios -->
+        <div class="table-responsive">
+          <table class="table table-dark table-hover border-secondary">
+            <thead class="table-primary text-dark">
+              <tr>
+                <th scope="col">Nombre</th>
+                <th scope="col">Apellido</th>
+                <th scope="col">DNI</th>
+                <th scope="col" class="text-center">Acciones</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let s of listado | filtroSocio: page : search">
+                <td class="align-middle">{{ s.nombre }}</td>
+                <td class="align-middle">{{ s.apellido }}</td>
+                <td class="align-middle">{{ s.dni }}</td>
+                <td class="text-center">
+                  <app-detalles-socio [socio]="s"></app-detalles-socio>
+                  <app-baja-socio ngClass="ms-2" [socio]="s" (onEliminado)="cargarTabla()"
+                    [deshabilitado]="s.fechaBaja !== null"></app-baja-socio>
+                  <app-baja-usuario ngClass="ms-2" [idUsuario]="s.idUsuario" (onEliminado)="cargarTabla()"
+                    [deshabilitado]="!s.idUsuario || s.fechaBaja == null"></app-baja-usuario>
+                  <button class="btn btn-success bi bi-pencil ms-2" [routerLink]="['/socio/nuevo', s.id]">
+                    Editar
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Indicador de resultados -->
+        <div class="text-end text-light mt-2">
+          <small>
+            Mostrando {{ (listado | filtroSocio: page : search).length }} de
+            {{ (listado | filtroSocio: 0 : search).length }} resultados
+          </small>
+        </div>
+      </div>
     </div>
   </div>
+</div>

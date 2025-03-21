@@ -1,26 +1,46 @@
 .fondo {
-    background-image: url("../../../../../assets/img/listadoPromociones.jpg");
-    background-size: cover;
-    width: 100%;
-    background-position: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    filter: none;
-    background-color: #4ea15c;
-  }
-  .titulo{
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+  background-image: url("../../../../../assets/img/listadoPromociones.jpg");
+  background-size: cover;
+  width: 100%;
+  background-position: center;
+  min-height: 100vh;
+  overflow-x: hidden;
+  padding: 2rem 0;
+}
 
-  .puntos{
-    font-weight: 600;
-    text-align: right;
-    direction: rtl;
-  }
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Personalización de los botones primarios */
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary.active,
+.btn-primary.disabled,
+.btn-primary[disabled] {
+  filter: none;
+  background-color: #4ea15c;
+}
+
+.fechaDesde {
+  color: green;
+}
+
+.fechaHasta {
+  color: red;
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  border-bottom: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
