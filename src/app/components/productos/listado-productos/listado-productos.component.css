@@ -1,22 +1,84 @@
 .fondo {
-    background-image: url("../../../../assets/img/home.webp");
-    background-size: cover;
-    /* height: 100%; */
-    width: 100%;
-    background-position: center;
-    min-height: 100vh;
-  }
+  background-image: url("../../../../assets/img/altaProducto.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
 
-  .titulo {
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+.card {
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #3a86ff;
+  border-color: #3a86ff;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
 
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-  filter: none;
+.btn-primary.active {
   background-color: #4ea15c;
+  border-color: #4ea15c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+.btn-outline-info {
+  color: #17a2b8;
+  border-color: #17a2b8;
+  transition: all 0.3s ease;
+}
+
+.btn-outline-info:hover {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  border-bottom: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
+}
+
+.table-primary {
+  background-color: #3a86ff !important;
+}
+
+.form-control:focus {
+  border-color: #3a86ff;
+  box-shadow: 0 0 0 0.2rem rgba(58, 134, 255, 0.25);
+}
+
+.img-thumbnail {
+  border: 2px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.img-thumbnail:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
