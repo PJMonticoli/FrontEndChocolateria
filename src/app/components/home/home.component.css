@@ -4,32 +4,30 @@ a {
 }
 
 .fondo {
-  animation: cambiar-imagen 45s linear infinite;
-  background-size: cover;
+  position: relative;
   width: 100%;
-  background-position: center;
   min-height: 100vh;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 @keyframes cambiar-imagen {
   0% {
-    background-image: url('../../../assets/img/home.jpg');
+    background-image: url('../../../assets/img/home.webp');
   }
   20% {
-    background-image: url('../../../assets/img/home1.jpg');
+    background-image: url('../../../assets/img/home1.webp');
   }
   40% {
-    background-image: url('../../../assets/img/home2.jpg');
+    background-image: url('../../../assets/img/altaProducto.webp');
   }
   60% {
-    background-image: url('../../../assets/img/home3.jpg');
+    background-image: url('../../../assets/img/home.webp');
   }
   80% {
-    background-image: url('../../../assets/img/home4.jpg');
+    background-image: url('../../../assets/img/home1.webp');
   }
   100% {
-    background-image: url('../../../assets/img/fondoHome.jfif');
+    background-image: url('../../../assets/img/altaProducto.webp');
   }
 }
 
@@ -97,4 +95,27 @@ a {
 .btn-secondary[disabled] {
   filter: none;
   background-color: #4ea15c;
+}
+
+
+.fondo img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 3s ease-in-out; 
+}
+
+.fondo img.active {
+  opacity: 1; 
+}
+
+@keyframes cambiar-imagen {
+  0%, 100% { opacity: 1; }
+  25% { opacity: 0; }
+  50% { opacity: 1; }
+  75% { opacity: 0; }
 }
