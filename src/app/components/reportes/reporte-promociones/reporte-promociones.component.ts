@@ -6,177 +6,111 @@ const Swal = require('sweetalert2');
 import html2canvas from 'html2canvas';
 import { jsPDF } from "jspdf";
 import { ResultadoGenerico } from 'src/app/models/resultado-generico';
-import { DtoReportePromociones } from 'src/app/models/dto-reporte-promociones';
 import { ChartData } from 'chart.js';
-import autoTable from 'jspdf-autotable'
+import autoTable from 'jspdf-autotable';
+
 @Component({
   selector: 'app-reporte-promociones',
   templateUrl: './reporte-promociones.component.html',
   styleUrls: ['./reporte-promociones.component.css']
 })
-export class ReportePromocionesComponent implements OnInit, OnDestroy{
-visibilidadReporte : boolean=false;
-formulario : FormGroup;
-resultadoReporte: DtoReportePromociones[] = [];
-body : any;
-search : string= '';
-page : number = 0;
-private subscription = new Subscription();
-datos: ChartData<'bar'>;
-cantidadCanjeos : number = 0;
-constructor(private servicioPromocion : PromocionService,
-            private formBuilder : FormBuilder){}
-ngOnInit(): void {
-  this.formulario = this.formBuilder.group({
-    fechaDesde : [,Validators.required],
-    fechaHasta : [,Validators.required]
-  })
-}
-ngOnDestroy(): void {
-  this.subscription.unsubscribe();
-}
-solicitarReporte(generarPDF = false){
-  if (!this.formulario.valid) {
-    Swal.fire({title:'Atención!', text:'¡Debes seleccionar previamente una fecha desde y hasta para generar el reporte!', icon: 'warning'});
-    return;
+export class ReportePromocionesComponent implements OnInit, OnDestroy {
+  visibilidadReporte: boolean = false;
+  formulario: FormGroup;
+  resultadoReporte: any[] = [];
+  body: any;
+  search: string = '';
+  page: number = 0;
+  private subscription = new Subscription();
+  datos: ChartData<'bar'>;
+
+  constructor(private servicioPromocion: PromocionService, private formBuilder: FormBuilder) {}
+
+  ngOnInit(): void {
+    this.formulario = this.formBuilder.group({
+      fechaDesde: [, Validators.required],
+      fechaHasta: [, Validators.required]
+    });
   }
-  this.visibilidadReporte = true;
-  if(this.formulario.valid){
-    const {fechaDesde, fechaHasta} = this.formulario.value;
-    this.body = {
-      fechaDesde: new Date(fechaDesde),
-      fechaHasta: new Date(fechaHasta)
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
+  solicitarReporte(): void {
+    if (!this.formulario.valid) {
+      Swal.fire({ title: 'Atención!', text: '¡Debes seleccionar una fecha desde y hasta!', icon: 'warning' });
+      return;
     }
-    this.body.fechaHasta.setHours(this.body.fechaHasta.getHours() + 23);
-    this.body.fechaHasta.setMinutes(this.body.fechaHasta.getMinutes() + 59);
+    const { fechaDesde, fechaHasta } = this.formulario.value;
+    const body = { fechaDesde: new Date(fechaDesde), fechaHasta: new Date(fechaHasta) };
+    body.fechaHasta.setHours(23, 59);
 
     this.subscription.add(
-      this.servicioPromocion.reportePromociones(this.body).subscribe({
+      this.servicioPromocion.reportePromociones(body).subscribe({
         next: (res: ResultadoGenerico) => {
           if (res.ok) {
-            if(this.body.fechaDesde> this.body.fechaHasta){
-              Swal.fire({title : 'Atención!', text:`Ingrese fechas validas:`, icon: 'warning'});
-              this.visibilidadReporte= false;
-              return;
-            }else if(res.resultado?.length===0){
-              Swal.fire({title : 'Atención!', text:`No hay resultados para el período de fechas ingresado`, icon: 'warning'});
-              this.visibilidadReporte= false;
-            }
-            this.resultadoReporte = res.resultado ? res.resultado : [];
-            this.cargar();
-            if (generarPDF) {
-              this.descargarTablaPDF();
-            }
-          }
-          else {
-            console.error(res.mensaje);
+            this.resultadoReporte = res.resultado || [];
+            this.visibilidadReporte = true;
+            this.cargarGrafico();
+          } else {
+            this.visibilidadReporte = false;
           }
         },
-        error: (err) => {
-          console.error(err);
+        error: () => {
+          Swal.fire({ title: 'Error', text: 'Error al generar reporte', icon: 'error' });
+          this.visibilidadReporte = false;
         }
-      }))
-  }else{
-    alert ('¡Completar campos de fechas!')
-  }
-}
-
-
-private cargar(): void {
-  const colores: string[] = [];
-  for (let i = 0; i < this.resultadoReporte.length; i++) {
-    const r = Math.floor(Math.random() * 256);
-    const g = Math.floor(Math.random() * 256);
-    const b = Math.floor(Math.random() * 256);
-    colores.push(`rgb(${r}, ${g}, ${b})`);
-  }
-  this.datos = {
-    labels: ['Cantidad de veces que se canjeo cada promoción'],
-    datasets: [],
-  };
-  this.resultadoReporte.forEach((fila,index) => {
-    this.datos.datasets.push(
-      {
-        label : fila.nombrePromocion,
-        data: [
-          fila.cantidadCanjeos
-        ],
-        backgroundColor: colores[index]
-      }
+      })
     );
-  });
-}
-
-descargarPDF(): void {
-  let DATA: any = document.getElementById('htmlData');
-  html2canvas(DATA).then((canvas) => {
-    let ancho = 290;
-    let altura = (canvas.height * ancho) / canvas.width;
-    const urlArchivo = canvas.toDataURL('image/png');
-    let ArchivoPDF = new jsPDF('l', 'mm', 'a4');
-    let position = 0;
-    let pageHeight = ArchivoPDF.internal.pageSize.getHeight();
-
-    if (altura > pageHeight - 20) {
-      altura = pageHeight - 20; 
-    }
-
-    ArchivoPDF.addImage(urlArchivo, 'PNG', 10, 10, ancho, altura);
-
-    console.log(new Date().toLocaleDateString("es-AR"));
-    ArchivoPDF.save(`Reporte Promociones (${new Date().toLocaleDateString("es-AR")}).pdf`);
-  });
-}
-
-descargarTablaPDF() {
-  const doc = new jsPDF('p', 'mm', 'a4');
-  const elementosTablaCantidad = this.obtenerElementosCantidadTabla();
-  const cantidadTituloY = 20;
-  doc.setFontSize(20);
-  doc.text('Reporte de Promociones', 10, 10);
-  
-  doc.setFontSize(14);
-  doc.text('Cantidad de veces que se canjeo cada promoción', 10, cantidadTituloY);
-  autoTable(doc, { body: elementosTablaCantidad, startY: cantidadTituloY + 10 });
-
-  console.log(new Date().toLocaleDateString("es-AR"));
-  doc.save(`Tabla Reporte Promociones (${new Date().toLocaleDateString("es-AR")}).pdf`);
-}
-
-
-
-obtenerElementosCantidadTabla(): string[][] {
-  const elementos: string[][] = [];
-  this.resultadoReporte.forEach((res) => {
-    const datosFila: string[] = [res.nombrePromocion, res.descripcion,res.cantidadCanjeos.toString()];
-    elementos.push(datosFila);
-  });
-  return elementos;
-}
-
-onSearchProduct(buscar : string){
-    this.page=0;
-    this.search=buscar.toLowerCase().normalize('NFD').toLowerCase()
-    .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1");
-}
-
-nextPage(){
-  this.page+=6;
-}
-
-prevPage(){
-  if(this.page>0){
-    this.page-=6;
   }
-}
 
+  private cargarGrafico(): void {
+    const colores = this.resultadoReporte.map(() => `rgb(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255})`);
 
+    this.datos = {
+      labels: ['Cantidad de veces que se canjeó cada promoción'],
+      datasets: this.resultadoReporte.map((res, index) => ({
+        label: res.nombrePromocion,
+        data: [res.cantidadCanjeos],
+        backgroundColor: colores[index]
+      }))
+    };
+  }
 
-get controlFechaDesde () : FormControl{
-  return this.formulario.controls['fechaDesde'] as FormControl;
-}
+  descargarPDF(): void {
+    Swal.fire({
+      title: 'Generando PDF',
+      text: 'Por favor espere...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
 
-get controlFechaHasta () : FormControl{
-  return this.formulario.controls['fechaHasta'] as FormControl;
-}
+    let DATA: any = document.getElementById('htmlData');
+    html2canvas(DATA, { scale: 2, useCORS: true }).then((canvas) => {
+      const pdf = new jsPDF('l', 'mm', 'a4');
+      const ancho = 290;
+      let altura = (canvas.height * ancho) / canvas.width;
+      const pageHeight = pdf.internal.pageSize.getHeight();
+
+      if (altura > pageHeight - 20) altura = pageHeight - 20;
+
+      pdf.text('Reporte de Promociones', 10, 10);
+      pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 10, 20, ancho, altura);
+      pdf.save(`Reporte_Promociones_${new Date().toLocaleDateString('es-AR')}.pdf`);
+      Swal.close();
+    }).catch(() => {
+      Swal.fire({ title: 'Error', text: 'Ocurrió un error al generar el PDF', icon: 'error' });
+    });
+  }
+
+  get controlFechaDesde(): FormControl {
+    return this.formulario.controls['fechaDesde'] as FormControl;
+  }
+
+  get controlFechaHasta(): FormControl {
+    return this.formulario.controls['fechaHasta'] as FormControl;
+  }
 }
