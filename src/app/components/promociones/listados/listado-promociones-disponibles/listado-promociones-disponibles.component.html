@@ -2,63 +2,83 @@
   <div class="container py-4">
     <!-- Card principal -->
     <div class="card bg-dark bg-opacity-75 shadow-lg border-0 rounded-3">
-      <!-- Cabecera del Card -->
+      <!-- Cabecera -->
       <div class="card-header bg-gradient">
         <h1 class="text-center text-uppercase titulo text-white py-2 mb-0">
-          Promociones Canjeadas
+          Promociones disponibles
         </h1>
       </div>
       <!-- Cuerpo del Card -->
       <div class="card-body">
-        <!-- Barra de búsqueda y paginación -->
+        <!-- Barra de búsqueda y paginación en la misma fila -->
         <div class="row align-items-center mb-3">
-          <!-- Búsqueda -->
           <div class="col-md-6">
             <div class="input-group">
-              <input type="text" class="form-control" placeholder="Buscar promoción por nombre y/o socio" #txtSearch
-                (keyup)="onSearch(txtSearch.value)">
-              <span class="input-group-text text-white">
+              <input type="text" class="form-control" placeholder="Buscar promoción por nombre" #txtSearch
+                (keyup)="onSearch(txtSearch.value)" />
+              <span class="input-group-text text-white bg-secondary">
                 <i class="bi bi-search"></i>
               </span>
             </div>
           </div>
-          <!-- Paginación -->
+          <!-- Botones de paginación a la derecha -->
           <div class="col-md-6 text-md-end mt-3 mt-md-0">
             <button class="btn btn-secondary rounded-pill me-2" (click)="prevPage()">
               <i class="bi bi-arrow-left-circle me-1"></i>
             </button>
-            <button class="btn btn-secondary rounded-pill" (click)="nextPage()"
-              [disabled]="(listado | filtroCanjeadas: page : search).length < 5 || (listado | filtroCanjeadas: page+5 : search).length === 0">
+            <button class="btn btn-secondary rounded-pill" (click)="nextPage()" [disabled]="
+                (listado | filtroPromocion: page : search).length < 5 ||
+                (listado | filtroPromocion: page + 5 : search).length === 0
+              ">
               <i class="bi bi-arrow-right-circle ms-1"></i>
             </button>
           </div>
         </div>
-        <!-- Tabla -->
-        <div class="table-responsive">
-          <table class="table table-dark table-hover border-secondary mt-2">
-            <thead class="table-primary text-dark">
-              <tr>
-                <th scope="col">Socio</th>
-                <th scope="col">Promoción</th>
-                <th scope="col">Fecha de canjeo</th>
-                <th scope="col">Acción</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr *ngFor="let p of listado | filtroCanjeadas: page : search">
-                <td class="align-middle">{{ p.socio }}</td>
-                <td class="align-middle">{{ p.promocion }}</td>
-                <td class="align-middle">{{ p.fechaCanjeada | date:'mediumDate':'UTC' }}</td>
-                <td class="text-center">
-                  <app-detalles-promocion-canjeada [promocion]="p"></app-detalles-promocion-canjeada>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+        <div class="card-header bg-gradient">
+          <div class="points-container mb-4">
+            <div class="card bg-dark text-white border-0 shadow">
+              <div class="card-body d-flex justify-content-between align-items-center py-2">
+                <span class="points-label text-uppercase">Puntos disponibles:</span>
+                <div class="points-value-container">
+                  <span class="points-value">{{ this.puntos }}</span>
+                  <i class="bi bi-coin ms-2 text-warning"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Tabla -->
+          <div class="table-responsive-sm">
+            <table class="table table-dark table-hover mt-2">
+              <thead class="table-primary text-dark text-center">
+                <tr>
+                  <th scope="col">Nombre</th>
+                  <th scope="col">Descripción</th>
+                  <th scope="col">Precio puntos</th>
+                  <th scope="col">Válido hasta</th>
+                  <th scope="col">Canjear promoción</th>
+                </tr>
+              </thead>
+              <tbody class="text-center">
+                <tr *ngFor="let p of listado | filtroPromocion : page : search">
+                  <td class="align-middle">{{ p.nombre }}</td>
+                  <td class="align-middle">{{ p.descripcion }}</td>
+                  <td class="align-middle">{{ p.precioPuntos }}</td>
+                  <td class="align-middle">
+                    {{ p.fechaHasta | date: 'mediumDate' : 'UTC' }}
+                  </td>
+                  <td class="text-center">
+                    <app-canjear (onCanjear)="cargarDatos()" [promocion]="p"
+                      [deshabilitado]="puntos < p.precioPuntos"></app-canjear>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
         </div>
+        <!-- Fin Card Body -->
       </div>
-      <!-- Fin Card Body -->
+      <!-- Fin Card principal -->
     </div>
-    <!-- Fin Card principal -->
   </div>
-</div>

@@ -69,6 +69,7 @@ import { ContactoComponent } from './components/contacto/contacto.component';
 import { RecuperarClaveComponent } from './components/usuarios/recuperar-clave/recuperar-clave.component';
 import { RankingProductosComponent } from './components/reportes/ranking-productos/ranking-productos.component';
 import { BajaUsuarioComponent } from './components/usuarios/baja-usuario/baja-usuario.component';
+import { ContactoService } from './services/contacto.service';
 
 @NgModule({
   declarations: [
@@ -144,7 +145,8 @@ import { BajaUsuarioComponent } from './components/usuarios/baja-usuario/baja-us
     CobroService,
     TipoPagoService,
     SocioService,
-    PromocionService
+    PromocionService,
+    ContactoService
   ],
   bootstrap: [AppComponent]
 })

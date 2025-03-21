@@ -1,13 +1,98 @@
 .fondo {
-    background-image: url("../../../assets/img/contacto.jpg");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    height: auto;
-    min-height: 95vh;
+  background-image: url("../../../assets/img/contacto.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  height: auto;
+  min-height: 95vh;
+  position: relative;
+}
+
+.fondo::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
+
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+}
+
+.contact-container {
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.accordion-button:not(.collapsed) {
+  background-color: rgba(107, 79, 46, 0.1);
+  color: #6b4f2e;
+}
+
+.accordion-button:focus {
+  box-shadow: 0 0 0 0.25rem rgba(107, 79, 46, 0.25);
+}
+
+.contact-card {
+  transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+.nav-tabs .nav-link {
+  color: #6b4f2e;
+  border-bottom: 2px solid transparent;
+}
+
+.nav-tabs .nav-link.active {
+  color: #6b4f2e;
+  border-bottom: 2px solid #6b4f2e;
+  font-weight: 600;
+}
+
+.nav-tabs .nav-link:hover:not(.active) {
+  border-color: transparent;
+  background-color: rgba(107, 79, 46, 0.1);
+}
+
+.btn-primary {
+  background-color: #6b4f2e;
+  border-color: #6b4f2e;
+}
+
+.btn-primary:hover {
+  background-color: #5a4226;
+  border-color: #5a4226;
+  color: white;
+}
+
+.btn-outline-primary {
+  color: #6b4f2e;
+  border-color: #6b4f2e;
+}
+
+.btn-outline-primary:hover {
+  background-color: #6b4f2e;
+  border-color: #6b4f2e;
+  color: white;
+}
+
+@media (max-width: 768px) {
+  .fondo {
+    background-size: cover;
   }
-  .titulo {
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+}
