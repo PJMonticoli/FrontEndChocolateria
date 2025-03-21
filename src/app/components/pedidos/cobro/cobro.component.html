@@ -1,8 +1,9 @@
-<button class="btn btn-success" data-bs-toggle="modal" attr.data-bs-target="#modalCobro{{pedido.id}}" 
-[disabled]="disabled" (click)="obtenerDetalles()">{{labelBoton}}</button>
+<button class="btn btn-outline-success" data-bs-toggle="modal" attr.data-bs-target="#modalCobro{{pedido.id}}"
+    [disabled]="disabled" (click)="obtenerDetalles()">{{labelBoton}}</button>
 
 <!-- Modal -->
-<div class="modal fade" [id]="'modalCobro' + pedido.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+<div class="modal fade" [id]="'modalCobro' + pedido.id" tabindex="-1" aria-labelledby="exampleModalLabel"
+    aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 500px;">
         <div class="modal-content">
             <div class="modal-header">
@@ -14,37 +15,46 @@
                 <form [formGroup]="formulario">
                     <div class="form-group">
                         <div class="mb-3">
-                            <label for="selectTipoPago" class="form-label fs-6 text" style="color:black">Tipo de Pago</label>
+                            <label for="selectTipoPago" class="form-label fs-6 text" style="color:black">Tipo de
+                                Pago</label>
                             <select id="selectTipoPago" class="form-select" formControlName="tipoPago"
                                 [class.is-invalid]="controlTipoPago.touched && controlTipoPago.hasError('required')">
-                                <option *ngFor="let tipopago of tiposPago" [ngValue]="tipopago">{{ tipopago.nombre }}</option>
+                                <option *ngFor="let tipopago of tiposPago" [ngValue]="tipopago">{{ tipopago.nombre }}
+                                </option>
                             </select>
                             <span class="invalid-feedback">
                                 Tipo de pago es requerido
                             </span>
                         </div>
                         <div class="mb-3" *ngIf="cobraConTarjeta">
-                            <div class="row mb-3 justify-content-center" *ngIf="cobraConTarjeta" >
-                                <img class="img" style="max-height: 180px;"  src="http://localhost:3000/uploads/tarjetas.jpg" alt="tarjetas">
+                            <div class="row mb-3 justify-content-center" *ngIf="cobraConTarjeta">
+                                <img class="img" style="max-height: 180px;"
+                                    src="http://localhost:3000/uploads/tarjetas.jpg" alt="tarjetas">
                             </div>
-                            <label for="selectTipoPago" class="form-label fs-6 text" style="color: black;">Codigo de Seguridad</label>
-                            <input type="password" placeholder="cvv-cvc" id="txtCodigoAutorizacion" class="form-control" formControlName="codigoAutorizacion"
-                                [class.is-invalid]="controlCodAutorizacion.touched && controlCodAutorizacion.hasError('required')" minlength="3" maxlength="4">
+                            <label for="selectTipoPago" class="form-label fs-6 text" style="color: black;">Codigo de
+                                Seguridad</label>
+                            <input type="password" placeholder="cvv-cvc" id="txtCodigoAutorizacion" class="form-control"
+                                formControlName="codigoAutorizacion"
+                                [class.is-invalid]="controlCodAutorizacion.touched && controlCodAutorizacion.hasError('required')"
+                                minlength="3" maxlength="4">
                             <span class="invalid-feedback">
                                 Codigo de autorización es requerido
                             </span>
                         </div>
-                        <div class="row mb-3 justify-content-center" *ngIf="mostrarCodQr" >
-                            <img class="img" style="max-width: 150px; max-height: 150px;"  src="http://localhost:3000/uploads/mercadopago.jpg" alt="mercadoPago">
+                        <div class="row mb-3 justify-content-center" *ngIf="mostrarCodQr">
+                            <img class="img" style="max-width: 150px; max-height: 150px;"
+                                src="http://localhost:3000/uploads/mercadopago.jpg" alt="mercadoPago">
                         </div>
-                        <div class="row mb-3 justify-content-center" *ngIf="mostrarCodQr" >
-                            <img class="img" style="max-width: 200px;"  src="http://localhost:3000/uploads/codigoQr.png" alt="Códico QR">
+                        <div class="row mb-3 justify-content-center" *ngIf="mostrarCodQr">
+                            <img class="img" style="max-width: 200px;" src="http://localhost:3000/uploads/codigoQr.png"
+                                alt="Códico QR">
                         </div>
-                    </div>  
-                    </form>
+                    </div>
+                </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal" (click)="guardarCobro()">{{labelBoton}}</button>
+                <button type="button" class="btn btn-outline-success" data-bs-dismiss="modal"
+                    (click)="guardarCobro()">{{labelBoton}}</button>
                 <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
             </div>
         </div>

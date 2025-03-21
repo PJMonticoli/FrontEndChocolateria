@@ -1,39 +1,39 @@
 <button class="btn btn-secondary bi bi-search" data-bs-toggle="modal" attr.data-bs-target="#modal{{pedido.id}}"
-    (click)="getDetalles()"> Ver Detalles</button>
+  (click)="getDetalles()"> </button>
 
 <!-- Modal -->
-<div class="modal fade" [id]="'modal'+pedido.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 900px;">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h4 class="modal-title" id="exampleModalLabel" style="color: black;">Detalles del pedido</h4>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <table class="table">
-                    <thead>
-                      <tr>
-                        <th scope="col">Producto</th>
-                        <th scope="col">Cantidad</th>
-                        <th scope="col">Precio Unitario</th>
-                        <th scope="col">Puntos Ganados</th>
-                        <th scope="col">Observaciones</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr *ngFor="let d of detalles">
-                        <td>{{d.nombreProducto}}</td>
-                        <td>{{d.cantidad}}</td>
-                        <td>${{d.precioUnitario}}</td>
-                        <td>{{d.puntosGanados}}</td>
-                        <td>{{d.observaciones ? d.observaciones : "-"}}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
-            </div>
-        </div>
+<div class="modal fade" [id]="'modal'+pedido.id" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 900px;">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title" id="exampleModalLabel" style="color: black;">Detalles del pedido</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <table class="table">
+          <thead>
+            <tr>
+              <th scope="col">Producto</th>
+              <th scope="col">Cantidad</th>
+              <th scope="col">Precio Unitario</th>
+              <th scope="col">Puntos Ganados</th>
+              <th scope="col">Observaciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let d of detalles">
+              <td>{{d.nombreProducto}}</td>
+              <td>{{d.cantidad}}</td>
+              <td>${{d.precioUnitario}}</td>
+              <td>{{d.puntosGanados}}</td>
+              <td>{{d.observaciones ? d.observaciones : "-"}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-outline-danger" data-bs-dismiss="modal">Cerrar</button>
+      </div>
     </div>
+  </div>
 </div>
