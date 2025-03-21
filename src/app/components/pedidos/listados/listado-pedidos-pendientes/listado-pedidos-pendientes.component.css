@@ -1,26 +1,59 @@
 .fondo {
     background-image: url("../../../../../assets/img/listadoPedidos.jpg");
     background-size: cover;
-    width: 100%;
     background-position: center;
     min-height: 100vh;
+    width: 100%;
+    overflow-x: hidden;
+    padding: 2rem 0;
   }
   .titulo {
     font-family: "Lora", serif;
     font-weight: 700;
   }
-.btn-primary:hover,
-.btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-  filter: none;
-  background-color: #4ea15c;
-}
-.estado-creado {
-  color: yellow;
-}
-
-.estado-pagado {
-  color: green;
-}
+  
+  /* Botones primarios y secundarios al pasar el mouse */
+  .btn-primary {
+    background-color: #3a86ff;
+    border-color: #3a86ff;
+    transition: all 0.3s ease;
+    font-weight: 500;
+  }
+  
+  .btn-primary:hover,
+  .btn-primary:active,
+  .btn-primary.active {
+    background-color: #4ea15c;
+    border-color: #4ea15c;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn-primary:disabled {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    transform: none;
+    box-shadow: none;
+  }
+  
+  /* Estados */
+  .estado-cancelado {
+    color: red;
+  }
+  .estado-entregado {
+    color: rgb(0, 255, 85);
+  }
+  
+  /* Ajustes para la tabla */
+  .table {
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .table thead th {
+    border-bottom: none;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 0.5px;
+  }
+  
