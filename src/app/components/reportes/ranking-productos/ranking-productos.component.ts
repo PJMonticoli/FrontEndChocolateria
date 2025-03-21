@@ -132,7 +132,16 @@ export class RankingProductosComponent implements OnInit, OnDestroy{
   }
   
   private cargar(): void {
-    const colores: { [producto: string]: string } = {};
+    const chocolateColors = [
+      'rgb(120, 63, 4)',    
+      'rgb(165, 113, 67)',  
+      'rgb(195, 144, 77)',  
+      'rgb(210, 180, 140)', 
+      'rgb(139, 69, 19)',   
+      'rgb(160, 82, 45)',   
+      'rgb(101, 67, 33)',   
+      'rgb(205, 133, 63)'   
+    ];
   
     this.datosCantidad = {
       labels: ['Cantidad vendida por cada producto'],
@@ -143,71 +152,171 @@ export class RankingProductosComponent implements OnInit, OnDestroy{
       labels: ['Promedio de venta por cada producto'],
       datasets: [],
     };
-  
-    // Construir el conjunto de datos para cantidades
-    for (let i = 0; i < 8; i++) {
-      const cantidadFila = this.resultadoCantidad[i];
-      const nombreProducto = cantidadFila.nombre;
-      const cantidad = cantidadFila.cantidad;
-  
-      // Generar un color aleatorio si el producto aún no tiene uno asignado
-      if (!colores[nombreProducto]) {
-        const r = Math.floor(Math.random() * 256);
-        const g = Math.floor(Math.random() * 256);
-        const b = Math.floor(Math.random() * 256);
-        const color = `rgb(${r}, ${g}, ${b})`;
-        colores[nombreProducto] = color;
-      }
-  
-      const colorProducto = colores[nombreProducto];
-  
-      this.datosCantidad.datasets.push({
-        label: nombreProducto,
-        data: [cantidad],
-        backgroundColor: colorProducto,
-      });
+    if (!this.resultadoCantidad.length || !this.resultadoPromedio.length) {
+      return;
     }
   
-    // Construir el conjunto de datos para promedios
-    for (let i = 0; i < 8; i++) {
-      const promedioFila = this.resultadoPromedio[i];
-      const nombreProducto = promedioFila.nombre;
-      const promedio = promedioFila.promedio;
-      const colorProducto = colores[nombreProducto];
+    const productosSet = new Set<string>();
+    this.resultadoCantidad.forEach(item => productosSet.add(item.nombre));
+    this.resultadoPromedio.forEach(item => productosSet.add(item.nombre));
+    const productos = Array.from(productosSet);
   
-      this.datosPromedio.datasets.push({
-        label: nombreProducto,
-        data: [promedio],
-        backgroundColor: colorProducto,
-      });
+    const coloresProductos: { [key: string]: string } = {};
+    productos.forEach((producto, index) => {
+      coloresProductos[producto] = chocolateColors[index % chocolateColors.length];
+    });
+  
+    const cantidadLimit = Math.min(8, this.resultadoCantidad.length);
+    for (let i = 0; i < cantidadLimit; i++) {
+      const cantidadFila = this.resultadoCantidad[i];
+      if (cantidadFila) {
+        const nombreProducto = cantidadFila.nombre;
+        const cantidad = cantidadFila.cantidad;
+        
+        this.datosCantidad.datasets.push({
+          label: nombreProducto,
+          data: [cantidad],
+          backgroundColor: coloresProductos[nombreProducto],
+        });
+      }
+    }
+  
+    const promedioLimit = Math.min(8, this.resultadoPromedio.length);
+    for (let i = 0; i < promedioLimit; i++) {
+      const promedioFila = this.resultadoPromedio[i];
+      if (promedioFila) {
+        const nombreProducto = promedioFila.nombre;
+        const promedio = promedioFila.promedio;
+        
+        this.datosPromedio.datasets.push({
+          label: nombreProducto,
+          data: [promedio],
+          backgroundColor: coloresProductos[nombreProducto],
+        });
+      }
     }
   }
   
   
   
   descargarPDF(): void {
+    Swal.fire({
+      title: 'Generando PDF',
+      text: 'Por favor espere...',
+      allowOutsideClick: false,
+      didOpen: () => {
+        Swal.showLoading();
+      }
+    });
+  
     let DATA: any = document.getElementById('htmlData');
-    html2canvas(DATA).then((canvas) => {
+    html2canvas(DATA, {
+      scale: 2, 
+      useCORS: true,
+      logging: false, 
+      backgroundColor: '#ffffff'
+    }).then((canvas) => {
       let ancho = 290;
       let altura = (canvas.height * ancho) / canvas.width;
       const urlArchivo = canvas.toDataURL('image/png');
       let ArchivoPDF = new jsPDF('l', 'mm', 'a4');
-      let position = 0;
       let pageHeight = ArchivoPDF.internal.pageSize.getHeight();
-  
+    
       if (altura > pageHeight - 20) {
         altura = pageHeight - 20; 
       }
   
-      ArchivoPDF.addImage(urlArchivo, 'PNG', 10, 10, ancho, altura);
-  
-      console.log(new Date().toLocaleDateString("es-AR"));
-      ArchivoPDF.save(`Reporte Ranking Productos (${new Date().toLocaleDateString("es-AR")}).pdf`);
+      ArchivoPDF.setFontSize(16);
+      ArchivoPDF.setTextColor(90, 57, 33); 
+      ArchivoPDF.text('Reporte de Chocolatería', 10, 10);
+      
+      ArchivoPDF.setFontSize(10);
+      const { fechaDesde, fechaHasta } = this.formulario.value;
+      const fechaDesdeStr = new Date(fechaDesde).toLocaleDateString('es-AR');
+      const fechaHastaStr = new Date(fechaHasta).toLocaleDateString('es-AR');
+      ArchivoPDF.text(`Período: ${fechaDesdeStr} al ${fechaHastaStr}`, 10, 18);
+    
+      ArchivoPDF.addImage(urlArchivo, 'PNG', 10, 22, ancho, altura);
+    
+
+      ArchivoPDF.setFontSize(8);
+      ArchivoPDF.setTextColor(100, 100, 100);
+      ArchivoPDF.text(`Generado el ${new Date().toLocaleDateString("es-AR")} a las ${new Date().toLocaleTimeString("es-AR")}`, 10, pageHeight - 10);
+      
+      ArchivoPDF.save(`Reporte_Ranking_Productos_${fechaDesdeStr}_${fechaHastaStr}.pdf`);
+      
+      Swal.close();
+    }).catch(error => {
+      console.error('Error al generar PDF:', error);
+      Swal.fire({
+        title: 'Error',
+        text: 'Ocurrió un error al generar el PDF',
+        icon: 'error'
+      });
     });
   }
   
   
+  private getCantidadPromise(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const {fechaDesde, fechaHasta} = this.formulario.value;
+      this.body = {
+        fechaDesde: new Date(fechaDesde),
+        fechaHasta: new Date(fechaHasta)
+      };
+      this.body.fechaHasta.setHours(this.body.fechaHasta.getHours() + 23);
+      this.body.fechaHasta.setMinutes(this.body.fechaHasta.getMinutes() + 59);
 
+      this.servicioProducto.rankingCantidad(8, this.body).subscribe({
+        next: (res: ResultadoGenerico) => {
+          if (res.ok) {
+            this.cantidadProd = res.resultado ? res.resultado[0]?.cantidadProd || 0 : 0;
+            this.resultadoCantidad = res.resultado || [];
+            this.cargar();
+            resolve();
+          } else {
+            reject(res.mensaje);
+          }
+        },
+        error: (err) => {
+          reject(err);
+        }
+      });
+    });
+  }
+
+  private getPromedioPromise(): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const {fechaDesde, fechaHasta} = this.formulario.value;
+      this.body = {
+        fechaDesde: new Date(fechaDesde),
+        fechaHasta: new Date(fechaHasta)
+      };
+      this.body.fechaHasta.setHours(this.body.fechaHasta.getHours() + 23);
+      this.body.fechaHasta.setMinutes(this.body.fechaHasta.getMinutes() + 59);
+
+      this.servicioProducto.rankingPromedio(8, this.body).subscribe({
+        next: (res: ResultadoGenerico) => {
+          if (res.ok) {
+            if (res.resultado?.length === 0) {
+              this.visibilidadReporte = false;
+              reject('No hay resultados para el período de fechas ingresado');
+              return;
+            }
+            this.promedioProd = res.resultado ? res.resultado[0]?.promedioProd || 0 : 0;
+            this.resultadoPromedio = res.resultado || [];
+            this.cargar();
+            resolve();
+          } else {
+            reject(res.mensaje);
+          }
+        },
+        error: (err) => {
+          reject(err);
+        }
+      });
+    });
+  }
   get controlFechaDesde () : FormControl{
     return this.formulario.controls['fechaDesde'] as FormControl;
   }
