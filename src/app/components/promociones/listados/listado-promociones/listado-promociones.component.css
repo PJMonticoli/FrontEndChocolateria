@@ -1,5 +1,5 @@
 .fondo {
-    background-image: url("../../../../../assets/img/listadoPromociones.jpg");
+    background-image: url("/assets/img/listadoPromociones.jpg");
     background-size: cover;
     background-position: center;
     background-attachment: fixed;

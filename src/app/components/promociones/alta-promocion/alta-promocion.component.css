@@ -1,5 +1,5 @@
 .fondo {
-    background-image: url(../../../../assets/img/altaPromocion.jpg);
+  background-image: url("/assets/img/altaPromocion.jpg");
     background-size: cover;
     width: 100%;
     background-position: center;

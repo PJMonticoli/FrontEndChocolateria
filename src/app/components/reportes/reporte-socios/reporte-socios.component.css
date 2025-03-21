@@ -1,6 +1,6 @@
 
 .fondo {
-  background-image: url("../../../../../src/assets/img/fondoReporte.jpg");
+  background-image: url("/assets/img/fondoReporte.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   background-position: center;

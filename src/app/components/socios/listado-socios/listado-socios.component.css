@@ -1,5 +1,5 @@
 .fondo {
-  background-image: url("../../../../assets/img/listadoSocios.jpg");
+  background-image: url("/assets/img/listadoSocios.jpg");
   background-size: cover;
   background-position: center;
   min-height: 100vh;
