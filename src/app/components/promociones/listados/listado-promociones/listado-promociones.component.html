@@ -1,59 +1,58 @@
-   <div class="fondo">
-        <div class="container">
-    
-          <h1 class="text-center text-uppercase titulo text-white py-3">
-            Listado de Promociones
-          </h1>
-          
-           <div class="row">
-            <div class="col-sm-4">
-              <div class="input-group mb-2">
-                <input type="text" class="form-control" placeholder="Buscar promoción por nombre" #txtSearch (keyup)="onSearch(txtSearch.value)">
-                <span class="input-group-text"><i class="bi bi-search"></i></span>
-              </div>
-            </div>
-          </div>    
-    
-          <button class="btn btn-primary" (click)="prevPage()">Anteriores</button>
-            &nbsp;
-            <button class="btn btn-primary" (click)="nextPage()"
-            [disabled]="(listado | filtroPromocion: page : search ).length < 5 || 
-                            (listado | filtroPromocion: page+5 : search).length === 0"
-              >Siguientes</button>
-    
-    
-          <div class="table-responsive-sm">
-            <table class="table table-dark table-hover mt-2">
-              <thead>
-                <tr>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Descripción</th>
-                    <th scope="col">Precio puntos</th>
-                    <th scope="col">Fecha desde</th>
-                    <th scope="col">Fecha hasta</th>
-                    <th scope="col">Terminar</th>
-                  </tr>
-              </thead>
-              <tbody>
-                <tr *ngFor="let p of listado | filtroPromocion : page : search">
-                    <td>{{p.nombre}}</td>
-                    <td>{{p.descripcion}}</td>
-                    <td>{{p.precioPuntos}}</td>
-                    <td [ngClass]="{
-                      'fechaDesde': p.fechaDesde}">
-                      {{p.fechaDesde | date:'mediumDate':'UTC'}}
-                    </td>
-                    <td [ngClass]="{
-                      'fechaHasta': p.fechaHasta}">
-                      {{p.fechaHasta  | date:'mediumDate':'UTC'}}
-                    </td>
-                    <td>
-                      <app-baja-promocion [promocion]="p" (onEliminado)="cargarTabla()"></app-baja-promocion>
-                    </td>
-                </tr>
-              </tbody>  
-            </table>
-          </div>
-    
+<div class="fondo">
+  <div class="container">
+
+    <h1 class="text-center text-uppercase titulo text-white py-3">
+      Promociones
+    </h1>
+
+    <div class="row">
+      <div class="col-sm-4">
+        <div class="input-group mb-2">
+          <input type="text" class="form-control" placeholder="Buscar promoción por nombre" #txtSearch
+            (keyup)="onSearch(txtSearch.value)">
+          <span class="input-group-text"><i class="bi bi-search"></i></span>
         </div>
       </div>
+    </div>
+
+    <button class="btn btn-primary" (click)="prevPage()">Anteriores</button>
+    &nbsp;
+    <button class="btn btn-primary" (click)="nextPage()" [disabled]="(listado | filtroPromocion: page : search ).length < 5 || 
+                            (listado | filtroPromocion: page+5 : search).length === 0">Siguientes</button>
+
+
+    <div class="table-responsive-sm">
+      <table class="table table-dark table-hover mt-2">
+        <thead>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col">Descripción</th>
+            <th scope="col">Precio puntos</th>
+            <th scope="col">Fecha desde</th>
+            <th scope="col">Fecha hasta</th>
+            <th scope="col">Terminar</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let p of listado | filtroPromocion : page : search">
+            <td>{{p.nombre}}</td>
+            <td>{{p.descripcion}}</td>
+            <td>{{p.precioPuntos}}</td>
+            <td [ngClass]="{
+                      'fechaDesde': p.fechaDesde}">
+              {{p.fechaDesde | date:'mediumDate':'UTC'}}
+            </td>
+            <td [ngClass]="{
+                      'fechaHasta': p.fechaHasta}">
+              {{p.fechaHasta | date:'mediumDate':'UTC'}}
+            </td>
+            <td>
+              <app-baja-promocion [promocion]="p" (onEliminado)="cargarTabla()"></app-baja-promocion>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+  </div>
+</div>

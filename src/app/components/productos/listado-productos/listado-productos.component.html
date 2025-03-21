@@ -3,7 +3,7 @@
     <div class="card bg-dark bg-opacity-75 shadow-lg border-0 rounded-3">
       <div class="card-header bg-gradient">
         <h1 class="text-center text-uppercase titulo text-white py-2 mb-0">
-          Listado de Productos
+          Productos
         </h1>
       </div>
       <div class="card-body">
@@ -13,7 +13,7 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Buscar producto" #txtSearch
                 (keyup)="onSearchProduct(txtSearch.value)">
-              <span class="input-group-text text-white"><i class="bi bi-search"></i></span>
+              <span class="input-group-text bg-secondary text-white"><i class="bi bi-search"></i></span>
             </div>
           </div>
           <div class="col-md-6 text-md-end mt-3 mt-md-0">
@@ -53,7 +53,7 @@
                 </td>
                 <td class="text-center">
                   <img src="http://localhost:3000/{{ p.urlImagen ? p.urlImagen : 'uploads/'+rutaImgDefault}}"
-                    class="img-thumbnail rounded" style="width: 75px; height: 75px; object-fit: cover;">
+                    class="img-thumbnail rounded" style="width: 50px; height: 50px; object-fit: cover;">
                 </td>
                 <td class="text-center">
                   <div class="btn-group">

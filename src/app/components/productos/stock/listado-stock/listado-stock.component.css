@@ -1,22 +1,57 @@
 .fondo {
-    background-image: url("../../../../../assets/img/altaProducto.webp");
-    background-size: cover;
-    width: 100%;
-    background-position: center;
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+  background-image: url("../../../../../assets/img/altaProducto.webp");
+  background-size: cover;
+  background-position: center;
+  background-attachment: fixed;
+  min-height: 100vh;
+  padding: 2rem 0;
+}
 
-  .titulo {
-    color: white;
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+  letter-spacing: 1px;
+}
+
+/* Card transitions */
+.card {
+  transition: all 0.3s ease;
+}
+
+/* Botones primarios */
+.btn-primary {
+  background-color: #3a86ff;
+  border-color: #3a86ff;
+  transition: all 0.3s ease;
+  font-weight: 500;
+}
+
 .btn-primary:hover,
 .btn-primary:active,
-.btn-primary.active,
-.btn-primary.disabled,
-.btn-primary[disabled] {
-  filter: none;
+.btn-primary.active {
   background-color: #4ea15c;
+  border-color: #4ea15c;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-primary:disabled {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Table styles */
+.table {
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.table thead th {
+  border-bottom: none;
+  text-transform: uppercase;
+  font-size: 0.9rem;
+  letter-spacing: 0.5px;
 }
