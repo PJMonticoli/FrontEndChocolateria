@@ -1,109 +1,162 @@
-<div class="fondo">
-    <div class="container p-5">
-        <h1 class="mb-5 text-center text-uppercase titulo">{{!isEdit ? 'Registrar Producto' : 'Editar Producto'}}</h1>
-          <form [formGroup]="formulario" enctype="multipart/form-data" method="post" action="/productos/">
-      
-            <div class="form-group">
-              <div class="row">
-                <div class="col-md-8">
-                  <div class="mb-3">
-                    <label for="nombre" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white ">Nombre</label>
-                    <input type="text" class="form-control" id="nombre" formControlName="nombre"                    
-                    [class.is-invalid]="controlNombre.touched && controlNombre.hasError('required')">
-                    <span *ngIf="controlNombre.touched && controlNombre.hasError('required')"
-                    class="invalid-feedback">
-                      Nombre es requerido
-                    </span>
-                  </div>
+<div class="chocolateria-background">
+  <div class="container py-5">
+    <div class="card shadow form-card">
+      <div class="card-header bg-chocolate text-white">
+        <h2 class="mb-0 text-center titulo-chocolate">
+          <i class="bi bi-box-seam me-2"></i>
+          {{!isEdit ? 'Nuevo Producto' : 'Editar Producto'}}
+        </h2>
+      </div>
+      <div class="card-body">
+        <form [formGroup]="formulario" enctype="multipart/form-data" method="post" action="/productos/"
+          class="needs-validation">
+
+          <!-- Primera fila: Información principal -->
+          <div class="row mb-4">
+            <div class="col-md-8">
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control" id="nombre" formControlName="nombre"
+                  [class.is-invalid]="controlNombre.touched && controlNombre.hasError('required')">
+                <label for="nombre">Nombre del producto</label>
+                <div *ngIf="controlNombre.touched && controlNombre.hasError('required')" class="invalid-feedback">
+                  El nombre del producto es obligatorio
                 </div>
-                
-                <div class="col-sm-2">
-                  <div class="mb-3">
-                    <label for="precio" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Precio</label>
-                    <input type="text" class="form-control" id="precio" formControlName="precio"
-                    [class.is-invalid]="controlPrecio.touched&&controlPrecio.hasError('required')">
-                    <span *ngIf="controlPrecio.touched && controlPrecio.hasError('required')"
-                    class="invalid-feedback">
-                      Precio es requerido
-                    </span>
-                  </div>
-                </div>
-      
-      
-                <div class="col-sm-2">
-                  <div class="mb-3">
-                    <label for="puntosGanados" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Puntos</label>
-                    <input type="text" class="form-control" id="puntosGanados" formControlName="puntosGanados"
-                    [class.is-invalid]="controlPuntos.touched&&controlPuntos.hasError('required')"
-                    >
-                    <span *ngIf="controlPuntos.touched && controlPuntos.hasError('required')"
-                    class="invalid-feedback">
-                      Puntos es requerido
-                    </span>
-                  </div>
-                </div>
-      
               </div>
             </div>
-      
-            
-                <div class="mb-3">
-                  <label for="descripcion" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Descripcion</label>
-                  <textarea class="form-control" id="descripcion" rows="2" formControlName="descripcion"></textarea>
-                </div>
-                <div class="mb-3">
-                  <label for="observaciones" class="form-label fs-6 text fw-semibold text-white fw-semibold text-white">Observaciones</label>
-                  <textarea class="form-control" id="observaciones" rows="2" formControlName="observaciones"></textarea>
-                </div>
-      
 
-                <div class="form-group" *ngIf="isEdit">
-                  <div class="row">
-                    <div class="col-lg-12">
-                      <div class="mb-3 form-check">
-                        <input #activo type="checkbox" name="inputActivo" class="form-check-input" id="inputActivo" formControlName="activo"
-                        (change)="cambioActivoCheck(activo.checked)"/>
-                        <label class="form-check-label fs-6 text fw-semibold text-white fw-semibold text-white" for="inputActivo">Activo</label>
-                      </div>
-                      <div class="mb-3 form-check">
-                        <input #disponible type="checkbox" name="inputDisponible" class="form-check-input" id="inputDisponible" formControlName="disponible" 
-                        (change)="cambioDisponibleCheck(disponible.checked)"/>
-                        <label class="form-check-label fs-6 text fw-semibold text-white fw-semibold text-white" for="inputDisponible">Disponible</label>
-                      </div>
+            <div class="col-sm-2">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="precio" formControlName="precio" min="0" step="0.01"
+                  [class.is-invalid]="controlPrecio.touched && controlPrecio.hasError('required')">
+                <label for="precio">Precio ($)</label>
+                <div *ngIf="controlPrecio.touched && controlPrecio.hasError('required')" class="invalid-feedback">
+                  El precio es obligatorio
+                </div>
+              </div>
+            </div>
+
+            <div class="col-sm-2">
+              <div class="form-floating mb-3">
+                <input type="number" class="form-control" id="puntosGanados" formControlName="puntosGanados" min="0"
+                  [class.is-invalid]="controlPuntos.touched && controlPuntos.hasError('required')">
+                <label for="puntosGanados">Puntos</label>
+                <div *ngIf="controlPuntos.touched && controlPuntos.hasError('required')" class="invalid-feedback">
+                  Los puntos son obligatorios
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Segunda fila: Descripción y observaciones -->
+          <div class="row mb-4">
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <textarea class="form-control" id="descripcion" style="height: 100px"
+                  formControlName="descripcion"></textarea>
+                <label for="descripcion">Descripción</label>
+                <small class="text-muted">Información principal del producto</small>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-floating mb-3">
+                <textarea class="form-control" id="observaciones" style="height: 100px"
+                  formControlName="observaciones"></textarea>
+                <label for="observaciones">Observaciones</label>
+                <small class="text-muted">Detalles adicionales (ingredientes, alérgenos, etc.)</small>
+              </div>
+            </div>
+          </div>
+
+          <!-- Tercera fila: Estados (solo en modo edición) -->
+          <div class="row mb-4" *ngIf="isEdit">
+            <div class="col-md-6">
+              <div class="card bg-light border-0 h-100">
+                <div class="card-body d-flex align-items-center">
+                  <div class="form-check form-switch">
+                    <input #activo type="checkbox" class="form-check-input" role="switch" id="inputActivo"
+                      formControlName="activo" (change)="cambioActivoCheck(activo.checked)">
+                    <label class="form-check-label" for="inputActivo">
+                      <span class="badge" [ngClass]="activo.checked ? 'bg-success' : 'bg-secondary'">
+                        {{ activo.checked ? 'Producto Activo' : 'Producto Inactivo' }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="card bg-light border-0 h-100">
+                <div class="card-body d-flex align-items-center">
+                  <div class="form-check form-switch">
+                    <input #disponible type="checkbox" class="form-check-input" role="switch" id="inputDisponible"
+                      formControlName="disponible" (change)="cambioDisponibleCheck(disponible.checked)">
+                    <label class="form-check-label" for="inputDisponible">
+                      <span class="badge" [ngClass]="disponible.checked ? 'bg-success' : 'bg-warning text-dark'">
+                        {{ disponible.checked ? 'En Stock' : 'Sin Stock' }}
+                      </span>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Cuarta fila: Imagen del producto -->
+          <div class="card shadow-sm border-0 mb-4">
+            <div class="card-header bg-chocolate text-white">
+              <h5 class="m-0"><i class="bi bi-image me-2"></i>Imagen del Producto</h5>
+            </div>
+            <div class="card-body">
+              <div class="row">
+                <div class="col-md-7">
+                  <div class="upload-dropzone p-4 rounded text-center"
+                    [ngClass]="{'dropzone-active': flag, 'dropzone-idle': !flag}" (dragover)="$event.preventDefault()"
+                    (dragenter)="$event.preventDefault()" (drop)="selectImage($event)">
+                    <i class="bi"
+                      [ngClass]="flag ? 'bi-check-circle-fill text-success fs-1' : 'bi-cloud-arrow-up fs-1 text-muted'"></i>
+                    <p class="mt-3 mb-2">{{flag ? 'Imagen cargada' : 'Arrastra una imagen aquí'}}</p>
+                    <small class="d-block text-muted mb-3">Formatos aceptados: JPG, PNG (máx. 5MB)</small>
+                    <input type="file" class="form-control form-control-sm" accept="image/*" name="file"
+                      (change)="selectImage($event)" id="urlImagen" hidden>
+                    <button type="button" class="btn btn-chocolate px-4"
+                      onclick="document.getElementById('urlImagen').click()">
+                      <i class="bi bi-file-earmark-image me-1"></i>Seleccionar Imagen
+                    </button>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="card preview-card shadow-sm h-100">
+                    <div class="card-header d-flex justify-content-between align-items-center bg-light">
+                      <span class="text-muted">Vista previa</span>
+                      <button *ngIf="flag" type="button" (click)="deleteImg()" class="btn btn-sm btn-outline-danger">
+                        <i class="bi bi-trash3"></i>
+                      </button>
+                    </div>
+                    <div class="card-body d-flex align-items-center justify-content-center p-2">
+                      <img class="img-fluid rounded product-preview" [src]="urlImagen" alt="Vista previa del producto">
                     </div>
                   </div>
                 </div>
+              </div>
+            </div>
+          </div>
 
-
-                <div class="form-group">
-                  <div class="row">
-                    <div class="col-md-8">
-                      <div class="card">
-                        <div class="card-body">
-                            <div class="form-group">
-                              <input type="file" class="form-control form-control-sm" accept="image/*" name="file"
-                                (change)="selectImage($event)" id="urlImagen"> <br>
-                              <button type="button" class="btn btn-outline-success bi bi-upload" (click)="onSubmit()" [disabled]="!flag"> Subir imagen</button>
-                            </div>
-                        </div>
-                      </div>
-              
-                    </div>
-                    <div class="col-md-4">
-                      <div class="card">
-                        <button *ngIf="flag==true" type="button" (click)="deleteImg()" class="btn btn-danger bi bi-trash3 boton-ubicacion"></button>
-                        <div class="card-body">                
-                          <img class="img-fluid" [src]="urlImagen" style="max-width: 100%; max-height: 268px;">
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-2">
-                  <button type="submit" class="btn btn-primary ms-2" *ngIf="!isEdit" (click)="registrar()">Registrar</button>
-                  <button type="submit" class="btn btn-success ms-2" *ngIf="isEdit" (click)="editar()" [disabled]="!formulario.valid">Editar</button>
-                  <button type="button" class="btn btn-danger ms-2" routerLink="/home">Cancelar</button>
-                </div>
-            </form>
+          <!-- Botones de acción -->
+          <div class="d-grid gap-2 d-md-flex justify-content-md-center mt-4">
+            <button type="button" class="btn btn-secondary" routerLink="/home">
+              <i class="bi bi-arrow-left me-1"></i>Cancelar
+            </button>
+            <button *ngIf="!isEdit" type="submit" class="btn btn-chocolate" (click)="registrar()"
+              [disabled]="!formulario.valid || !flag">
+              <i class="bi bi-plus-circle me-1"></i>Registrar Producto
+            </button>
+            <button *ngIf="isEdit" type="submit" class="btn btn-success" (click)="editar()"
+              [disabled]="!formulario.valid">
+              <i class="bi bi-check-circle me-1"></i>Guardar Cambios
+            </button>
+          </div>
+        </form>
       </div>
+    </div>
+  </div>
 </div>

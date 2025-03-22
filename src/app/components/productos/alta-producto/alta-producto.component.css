@@ -1,21 +1,122 @@
-.fondo {
+
+.chocolateria-background {
   background-image: url("/assets/img/altaProducto.webp");
   background-size: cover;
-  width: 100%;
   background-position: center;
+  background-attachment: fixed;
   min-height: 100vh;
   overflow-x: hidden;
+  padding: 30px 0;
+  position: relative;
 }
 
-  .titulo {
-    color: white;
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+.chocolateria-background::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 0;
+}
 
-  .boton-ubicacion{
-    position: absolute;
-    top: 0;
-    right: 0;
-    margin-top: 15px;
-  }
+.container {
+  position: relative;
+  z-index: 1;
+}
+
+.form-card {
+  border-radius: 12px;
+  overflow: hidden;
+  border: none;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  background-color: rgba(255, 255, 255, 0.95);
+}
+
+.bg-chocolate {
+  background: linear-gradient(135deg, #6b4226 0%, #3d2314 100%);
+}
+
+.titulo-chocolate {
+  font-family: 'Lora', serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.btn-chocolate {
+  background: linear-gradient(135deg, #8B4513 0%, #5D2906 100%);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+.btn-chocolate:hover {
+  background: linear-gradient(135deg, #9B5523 0%, #6D3916 100%);
+  box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+  transform: translateY(-2px);
+  color: white;
+}
+
+.btn-chocolate:active, .btn-chocolate:focus {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  color: white;
+}
+
+
+.upload-dropzone {
+  border: 2px dashed #ced4da;
+  transition: all 0.3s ease;
+  background-color: #f8f9fa;
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.dropzone-idle:hover {
+  border-color: #8B4513;
+  background-color: #f3f3f3;
+}
+
+.dropzone-active {
+  border-color: #28a745;
+  background-color: rgba(40, 167, 69, 0.1);
+}
+
+
+.preview-card {
+  overflow: hidden;
+  height: 100%;
+  border-radius: 8px;
+}
+
+.product-preview {
+  object-fit: contain;
+  max-height: 200px;
+  width: auto;
+  border-radius: 4px;
+  transition: transform 0.3s ease;
+}
+
+.product-preview:hover {
+  transform: scale(1.05);
+}
+
+.form-floating label {
+  color: #495057;
+}
+
+.form-control:focus {
+  border-color: #8B4513;
+  box-shadow: 0 0 0 0.25rem rgba(139, 69, 19, 0.25);
+}
+
+.form-check-input:checked {
+  background-color: #8B4513;
+  border-color: #8B4513;
+}
