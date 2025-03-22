@@ -12,3 +12,14 @@
     font-family: "Lora", serif;
     font-weight: 700;
   }
+  .btn-chocolate {
+    background-color: #9b7239;
+    border-color: #9b7239;
+  }
+  
+  .btn-chocolate:hover {
+    background-color: #8a632c;
+    transform: translateY(-3px);
+  }
+  
+  
