@@ -1,9 +1,9 @@
-<!-- Improved Member Registration Form -->
+<!-- Improved Chocolate Shop Member Registration Form -->
 <div class="fondo">
     <div class="container py-5">
-        <div class="card bg-dark bg-opacity-75 shadow-lg border-0 rounded-3">
-            <div class="card-header bg-gradient-primary">
-                <h1 class="mb-0 text-center text-uppercase titulo text-white py-2">
+        <div class="card bg-chocolate shadow-lg border-0 rounded-3">
+            <div class="card-header chocolate-gradient">
+                <h1 class="mb-0 text-center text-uppercase titulo text-white py-3">
                     {{!isEdit ? 'Registro de Socio' : 'Editar Socio'}}
                 </h1>
             </div>
@@ -13,10 +13,10 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputNombre" placeholder="Nombre" formControlName="nombre"
+                                <input type="text" class="form-control chocolate-input" id="inputNombre"
+                                    placeholder="Nombre" formControlName="nombre"
                                     [class.is-invalid]="controlNombre.touched && controlNombre.hasError('required')">
-                                <label for="inputNombre" class="text-light">
+                                <label for="inputNombre" class="text-chocolate-light">
                                     <i class="bi bi-person-fill me-2"></i>Nombre
                                 </label>
                                 <div *ngIf="controlNombre.touched && controlNombre.hasError('required')"
@@ -28,10 +28,10 @@
 
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputApellido" placeholder="Apellido" formControlName="apellido"
+                                <input type="text" class="form-control chocolate-input" id="inputApellido"
+                                    placeholder="Apellido" formControlName="apellido"
                                     [class.is-invalid]="controlApellido.touched && controlApellido.hasError('required')">
-                                <label for="inputApellido" class="text-light">
+                                <label for="inputApellido" class="text-chocolate-light">
                                     <i class="bi bi-person-fill me-2"></i>Apellido
                                 </label>
                                 <div *ngIf="controlApellido.touched && controlApellido.hasError('required')"
@@ -46,10 +46,10 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="email" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputEmail" placeholder="Email" formControlName="email"
+                                <input type="email" class="form-control chocolate-input" id="inputEmail"
+                                    placeholder="Email" formControlName="email"
                                     [class.is-invalid]="controlEmail.touched && controlEmail.hasError('required')">
-                                <label for="inputEmail" class="text-light">
+                                <label for="inputEmail" class="text-chocolate-light">
                                     <i class="bi bi-envelope-fill me-2"></i>Email
                                 </label>
                                 <div *ngIf="controlEmail.touched && controlEmail.hasError('required')"
@@ -61,10 +61,10 @@
 
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="number" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputDni" placeholder="DNI" formControlName="dni"
+                                <input type="number" class="form-control chocolate-input" id="inputDni"
+                                    placeholder="DNI" formControlName="dni"
                                     [class.is-invalid]="controlDni.touched && controlDni.hasError('required')">
-                                <label for="inputDni" class="text-light">
+                                <label for="inputDni" class="text-chocolate-light">
                                     <i class="bi bi-card-text me-2"></i>DNI
                                 </label>
                                 <div *ngIf="controlDni.touched && controlDni.hasError('required')"
@@ -79,19 +79,19 @@
                     <div class="row mb-4">
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="text" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputDomicilio" placeholder="Domicilio" formControlName="domicilio">
-                                <label for="inputDomicilio" class="text-light">
-                                    <i class="bi bi-house-add-fill me-2"></i>Domicilio
+                                <input type="text" class="form-control chocolate-input" id="inputDomicilio"
+                                    placeholder="Domicilio" formControlName="domicilio">
+                                <label for="inputDomicilio" class="text-chocolate-light">
+                                    <i class="bi bi-house-fill me-2"></i>Domicilio
                                 </label>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-floating mb-3">
-                                <input type="tel" class="form-control bg-dark bg-opacity-50 text-white border-0"
-                                    id="inputTelefono" placeholder="Teléfono" formControlName="telefono">
-                                <label for="inputTelefono" class="text-light">
+                                <input type="tel" class="form-control chocolate-input" id="inputTelefono"
+                                    placeholder="Teléfono" formControlName="telefono">
+                                <label for="inputTelefono" class="text-chocolate-light">
                                     <i class="bi bi-telephone-fill me-2"></i>Teléfono
                                 </label>
                             </div>
@@ -99,17 +99,17 @@
                     </div>
 
                     <!-- Botones de acción -->
-                    <div class="d-flex justify-content-center gap-3 mt-4">
+                    <div class="d-flex justify-content-center gap-3 mt-5">
                         <button type="button" class="btn btn-outline-light px-4 py-2 rounded-pill" routerLink="/home">
                             <i class="bi bi-arrow-left me-2"></i>Cancelar
                         </button>
 
-                        <button *ngIf="!isEdit" type="submit" class="btn btn-success px-4 py-2 rounded-pill"
+                        <button *ngIf="!isEdit" type="submit" class="btn btn-chocolate px-4 py-2 rounded-pill"
                             [disabled]="formulario.invalid" (click)="registrar()">
                             <i class="bi bi-person-plus-fill me-2"></i>Registrar
                         </button>
 
-                        <button *ngIf="isEdit" type="submit" class="btn btn-primary px-4 py-2 rounded-pill"
+                        <button *ngIf="isEdit" type="submit" class="btn btn-chocolate-secondary px-4 py-2 rounded-pill"
                             [disabled]="formulario.invalid" (click)="editar()">
                             <i class="bi bi-save me-2"></i>Guardar Cambios
                         </button>

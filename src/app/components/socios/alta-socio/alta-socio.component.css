@@ -1,15 +1,89 @@
+/* Chocolate Shop Styles */
 .fondo {
-    background-image: url("/assets/img/home.webp");
-    background-size: 100% 100%;
-    background-repeat: no-repeat;
-    background-position: center;
-    width: 100%;
-    height: auto;
-    min-height: 95vh;
-  }
+  background-image: url("/assets/img/home.webp");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 100%;
+  min-height: 95vh;
+  padding: 30px 0;
+}
 
-  .titulo {
-    color: #000000;
-    font-family: "Lora", serif;
-    font-weight: 700;
-  }
+.titulo {
+  font-family: "Lora", serif;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
+}
+
+.bg-chocolate {
+  background-color: rgba(40, 25, 18, 0.85);
+  border: 1px solid rgba(99, 54, 33, 0.5);
+}
+
+.chocolate-gradient {
+  background: linear-gradient(to right, #5c3624, #8b5a2b);
+  border-bottom: 3px solid #d4a76a;
+}
+
+.chocolate-input {
+  background-color: rgba(30, 20, 15, 0.7) !important;
+  color: #f1e5d9 !important;
+  border: 1px solid rgba(138, 90, 60, 0.5) !important;
+  transition: all 0.3s ease;
+}
+
+.chocolate-input:focus {
+  background-color: rgba(40, 25, 18, 0.8) !important;
+  border-color: #d4a76a !important;
+  box-shadow: 0 0 0 0.25rem rgba(212, 167, 106, 0.25) !important;
+}
+
+.text-chocolate-light {
+  color: #d4a76a !important;
+}
+
+.btn-chocolate {
+  background-color: #8b5a2b;
+  border-color: #8b5a2b;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-chocolate:hover, .btn-chocolate:focus {
+  background-color: #6b4423;
+  border-color: #6b4423;
+  color: #fff;
+}
+
+.btn-chocolate-secondary {
+  background-color: #5c3624;
+  border-color: #5c3624;
+  color: #fff;
+  transition: all 0.3s ease;
+}
+
+.btn-chocolate-secondary:hover, .btn-chocolate-secondary:focus {
+  background-color: #482b1d;
+  border-color: #482b1d;
+  color: #fff;
+}
+
+.form-floating label {
+  opacity: 0.9;
+}
+
+.form-floating>.form-control:focus~label,
+.form-floating>.form-control:not(:placeholder-shown)~label {
+  transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+  opacity: 1;
+}
+
+.invalid-feedback {
+  color: #e9c5b7;
+  font-weight: 500;
+}
+
+.card {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+}
