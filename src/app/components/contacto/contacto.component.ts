@@ -46,7 +46,7 @@ export class ContactoComponent implements OnInit {
     this.contactoService.enviarMensaje(mensaje).subscribe({
       next: (res) => {
         if (res.ok) {
-          Swal.fire({ title: '¡Gracias!', text: res.mensaje, icon: 'success' });
+          Swal.fire({ title: '¡Gracias!. Pronto nos pondremos en contacto con usted', text: res.mensaje, icon: 'success' });
           this.contactForm.reset();
           this.submitted = false;
         } else {

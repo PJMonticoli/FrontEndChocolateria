@@ -1,101 +1,92 @@
 <div class="fondo">
-  <div class="container p-5">
-      <h1 class="text-center text-uppercase titulo py-3 text-white">Registro de usuario</h1>
-      <form [formGroup]="formulario">
-        <div class="form-group">
-          <div class="row">
-            <div class="col-md-8">
-              
-              <div class="mb-3">
-                <label for="inputUsuario" class="form-label text-white text fw-semibold" style="font-size: 1.2rem">Nombre de usuario</label>
-
-                <div class="input-group">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i class="bi bi-person-fill"></i>
-                    </div>
-                  </div>
-                  <input type="text" placeholder="Ingrese su usuario" required="required" formControlName="usuario"
-                    class="form-control" [class.is-invalid]="controlUsuario.touched && controlUsuario.hasError('required')"
-                    #inputUsuario
-                  />
-                  <span *ngIf="controlUsuario.touched && controlUsuario.hasError('required')" class="invalid-feedback text fw-semibold">
-                    Usuario es requerido,complete el campo
-                  </span>
+  <div class="container py-5">
+    <div class="card bg-chocolate shadow-lg border-0 rounded-3">
+      <div class="card-header chocolate-gradient">
+        <h1 class="mb-0 text-center text-uppercase titulo text-white py-3">
+          Registro de Usuario
+        </h1>
+      </div>
+      <div class="card-body p-4">
+        <div class="row">
+          <!-- Primera columna: formulario -->
+          <div class="col-md-8">
+            <form [formGroup]="formulario">
+              <!-- Usuario -->
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control chocolate-input" id="inputUsuario"
+                  placeholder="Nombre de usuario" formControlName="usuario"
+                  [class.is-invalid]="controlUsuario.touched && controlUsuario.invalid" />
+                <label for="inputUsuario" class="text-chocolate-light">
+                  <i class="bi bi-person-fill me-2"></i>Nombre de usuario
+                </label>
+                <div *ngIf="controlUsuario.touched && controlUsuario.hasError('required')" class="invalid-feedback">
+                  Usuario es requerido, complete el campo por favor.
                 </div>
               </div>
 
-
-              <div class="mb-3">
-                <label for="inputUsuario"class="form-label text-white text fw-semibold" style="font-size: 1.2rem">DNI</label>
-
-                <div class="input-group">
-                  <input type="text"placeholder="Ingrese su DNI" required="required" formControlName="dni" class="form-control"
-                    [class.is-invalid]="controlDNI.touched && controlDNI.hasError('required')"/>
-                  <span
-                    *ngIf="controlDNI.touched && controlDNI.hasError('required')"class="invalid-feedback text fw-semibold">
-                    DNI es requerido,complete el campo
-                  </span>
+              <!-- DNI -->
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control chocolate-input" id="inputDNI" placeholder="DNI"
+                  formControlName="dni" [class.is-invalid]="controlDNI.touched && controlDNI.invalid" />
+                <label for="inputDNI" class="text-chocolate-light">
+                  <i class="bi bi-card-text me-2"></i>DNI
+                </label>
+                <div *ngIf="controlDNI.touched && controlDNI.hasError('required')" class="invalid-feedback">
+                  DNI es requerido, complete el campo por favor.
                 </div>
               </div>
 
-
-              <div class="mb-3">
-                <label for="inputContrasenia"class="form-label text-white text fw-semibold" style="font-size: 1.2rem">Contraseña</label>
-
-                <div class="input-group">
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i class="bi bi-key-fill"></i>
-                    </div>
-                  </div>
-                  <input type="password" name="p" placeholder="Ingrese su contraseña" required="required"
-                    formControlName="contrasenia" class="form-control"
-                    [class.is-invalid]="controlContrasenia.touched && controlContrasenia.hasError('required')"
-                    [type]="fieldTextType ? 'text' : 'password'"
-                  />
-                  <div class="input-group-append">
-                    <span class="input-group-text">
-                      <i
-                        class="bi"
-                        [ngClass]="{
-                          'bi-eye-slash-fill': !fieldTextType,
-                          'bi-eye-fill': fieldTextType
-                        }"
-                        (click)="toggleFieldTextType()"
-                      ></i>
-                    </span>
-                  </div>
-                  <span
-                    *ngIf=" controlContrasenia.touched &&controlContrasenia.hasError('required')" class="invalid-feedback text fw-semibold">
-                    Contraseña es requerida,complete el campo
-                  </span>
-                </div>
-              </div>   
-                <br />
-              
-
-                <button type="submit" class="btn btn-primary btn-block btn-large"
-                  [disabled]="!formulario.valid"(click)="registrar()"
-                >Registrar Usuario</button>
+              <!-- Contraseña -->
+              <div class="form-floating mb-3 position-relative">
+                <input [type]="fieldTextType ? 'text' : 'password'" class="form-control chocolate-input pe-5"
+                  id="inputContrasenia" placeholder="Contraseña" formControlName="contrasenia"
+                  [class.is-invalid]="controlContrasenia.touched && controlContrasenia.invalid" />
+                <label for="inputContrasenia" class="text-chocolate-light">
+                  <i class="bi bi-key-fill me-2"></i>Contraseña
+                </label>
+                <button class="btn password-toggle position-absolute end-0 top-50 translate-middle-y me-2" type="button"
+                  (click)="toggleFieldTextType()">
+                  <i class="bi" [ngClass]="{
+                      'bi-eye-slash-fill': !fieldTextType,
+                      'bi-eye-fill': fieldTextType
+                    }"></i>
+                </button>
+              </div>
+              <div *ngIf="controlContrasenia.touched && controlContrasenia.hasError('required')"
+                class="invalid-feedback">
+                Contraseña es requerida, complete el campo por favor.
               </div>
 
+              <!-- Botón Registrar -->
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-chocolate px-4 py-2 rounded-pill" [disabled]="formulario.invalid"
+                  (click)="registrar()">
+                  <i class="bi bi-person-plus-fill me-2"></i>Registrar Usuario
+                </button>
+              </div>
+            </form>
+          </div>
 
-              
-            <div class="col-md-4 col-sm-12 mt-3">
-              <div class="card bg-dark text-white">
-                <div class="card-body" style="border: blue 2px solid">
-                  <h5 class="card-title fw-bold mt-2" style="color: blue;">¿Ya te registraste como socio? </h5>
-                  <p class="card-text fw-semibold">Es necesario asociarse previamente y
-                    luego utilizar las mismas credenciales para la creación de la cuenta.
-                  </p>
-                  <a class="btn btn-primary fw-bold text btn-block btn-large" routerLink="/socio/nuevo">Registrarme como socio</a>
-                </div>
-            </div>
-
+          <!-- Segunda columna: Card "¿Ya te registraste como socio?" -->
+          <div class="col-md-4 mt-4 mt-md-0">
+            <div class="card bg-chocolate shadow-lg border-0 rounded-3 h-100">
+              <div class="card-header chocolate-gradient">
+                <h5 class="mb-0 text-center titulo text-white py-2">
+                  ¿Ya te registraste como socio?
+                </h5>
+              </div>
+              <div class="card-body d-flex flex-column justify-content-between">
+                <p class="text-white">
+                  Es necesario asociarse previamente y luego utilizar las mismas credenciales
+                  para la creación de la cuenta.
+                </p>
+                <a class="btn btn-chocolate-secondary px-4 py-2 rounded-pill w-100 mt-auto" routerLink="/socio/nuevo">
+                  <i class="bi bi-person-fill-add me-2"></i>Registrarme como socio
+                </a>
+              </div>
             </div>
           </div>
         </div>
-      </form>
+      </div>
     </div>
-</div>
+  </div>
