@@ -1,109 +1,82 @@
 <div class="fondo">
-  <div class="container py-3">
-    <h1 class="titulo text-center text-uppercase py-3 text-white">Cambiar Contraseña</h1>
-  </div>
-    <div class="container align-center">
-        <form [formGroup]="formulario">
-            <div class="form-group">
-                <div class="row">
-                    <div class="col">
-                        <label
-                  for="inputUsuario"
-                  class="form-label text-white"
-                  style="font-size: 1.2rem"
-                  >Ingrese el nombre de usuario</label>
+  <div class="container py-5">
+    <div class="row justify-content-center">
+      <!-- Ajusta col-md-6, col-lg-5, etc. según el ancho deseado -->
+      <div class="col-md-6 col-lg-5">
+        <div class="card bg-chocolate shadow-lg border-0 rounded-3">
+          <div class="card-header chocolate-gradient">
+            <h1 class="mb-0 text-center text-uppercase titulo text-white py-3">
+              Cambiar Contraseña
+            </h1>
+          </div>
 
-                  <div class="input-group">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <i class="bi bi-person-fill"></i>
-                      </div>
-                    </div>
-                    <input type="text" placeholder="Ingrese su usuario" required="required"
-                      formControlName="usuario"
-                      class="form-control"
-                      [class.is-invalid]="controlUsuario.touched && controlUsuario.hasError('required')"
-                      #inputUsuario
-                    />
-                    <span *ngIf="controlUsuario.touched && controlUsuario.hasError('required')" class="invalid-feedback text fw-semibold">
-                      Usuario es requerido, complete el campo
-                    </span>
-                  </div>
-                   <br>
-                  <label for="inputUsuario"class="form-label text-white text" style="font-size: 1.2rem">DNI</label>
+          <div class="card-body p-4">
+            <!-- Usa (ngSubmit) para manejar el submit con Angular -->
+            <form [formGroup]="formulario" (ngSubmit)="recuperarClave()">
 
-                  <div class="input-group">
-                    <input type="text"placeholder="Ingrese su DNI" required="required" formControlName="dni" class="form-control"
-                      [class.is-invalid]="controlDNI.touched && controlDNI.hasError('required')"/>
-                    <span
-                      *ngIf="controlDNI.touched && controlDNI.hasError('required')"class="invalid-feedback text fw-semibold">
-                      DNI es requerido,complete el campo
-                    </span>
-                  </div>
-                  
-                  <br>
-                  <label
-                  for="inputContrasenia"
-                  class="form-label text-white"
-                  style="font-size: 1.2rem"
-                  >Nueva Contraseña</label
-                >
-                <label class="text-white">Ingrese una contraseña con 8 o mas caracteres</label> 
-                  <div class="input-group">
-                    <div class="input-group-append">
-                      <div class="input-group-text">
-                        <i class="bi bi-key-fill"></i>
-                      </div>
-                    </div>
-                    <input
-                      type="password"
-                      name="p"
-                      placeholder="Ingrese su contraseña"
-                      required="required"
-                      formControlName="contrasenia"
-                      class="form-control"
-                      [class.is-invalid]="
-                        controlContrasenia.touched &&
-                        controlContrasenia.hasError('required')
-                      "
-                      [type]="fieldTextType ? 'text' : 'password'"
-                    />
-                    <div class="input-group-append">
-                      <span class="input-group-text">
-                        <i
-                          class="bi"
-                          [ngClass]="{
-                            'bi-eye-slash-fill': !fieldTextType,
-                            'bi-eye-fill': fieldTextType
-                          }"
-                          (click)="toggleFieldTextType()"
-                        ></i>
-                      </span>
-                    </div>
-                    <span
-                      *ngIf="
-                        controlContrasenia.touched &&
-                        controlContrasenia.hasError('required')
-                      "
-                      class="invalid-feedback text fw-semibold"
-                    >
-                      Contraseña es requerida,complete el campo
-                    </span>
-                  </div>
-
-                  <br>
-                  <button
-                  type="submit"
-                  class="btn btn-primary btn-block btn-large mt-2"
-                  [disabled]="!formulario.valid"
-                  (click)="recuperarClave()"
-                >
-                  Cambiar Contraseña
-                </button>
-
-                    </div>
+              <!-- Usuario -->
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control chocolate-input" id="inputUsuario"
+                  placeholder="Ingrese el nombre de usuario" formControlName="usuario"
+                  [class.is-invalid]="controlUsuario.touched && controlUsuario.hasError('required')" />
+                <label for="inputUsuario" class="text-chocolate-light">
+                  <i class="bi bi-person-fill me-2"></i>Ingrese el nombre de usuario
+                </label>
+                <div *ngIf="controlUsuario.touched && controlUsuario.hasError('required')" class="invalid-feedback">
+                  Usuario es requerido, complete el campo
                 </div>
-            </div>
-        </form>
+              </div>
+
+              <!-- DNI -->
+              <div class="form-floating mb-3">
+                <input type="text" class="form-control chocolate-input" id="inputDni" placeholder="DNI"
+                  formControlName="dni" [class.is-invalid]="controlDNI.touched && controlDNI.hasError('required')" />
+                <label for="inputDni" class="text-chocolate-light">
+                  <i class="bi bi-card-text me-2"></i>DNI
+                </label>
+                <div *ngIf="controlDNI.touched && controlDNI.hasError('required')" class="invalid-feedback">
+                  DNI es requerido, complete el campo
+                </div>
+              </div>
+
+              <!-- Nueva contraseña -->
+              <div class="form-floating mb-3 position-relative">
+                <input [type]="fieldTextType ? 'text' : 'password'" class="form-control chocolate-input pe-5"
+                  id="inputContrasenia" placeholder="Nueva Contraseña" formControlName="contrasenia"
+                  [class.is-invalid]="controlContrasenia.touched && controlContrasenia.hasError('required')" />
+                <label for="inputContrasenia" class="text-chocolate-light">
+                  <i class="bi bi-key-fill me-2"></i>Nueva Contraseña
+                </label>
+                <!-- Botón para mostrar/ocultar contraseña -->
+                <button class="btn password-toggle position-absolute end-0 top-50 translate-middle-y me-2" type="button"
+                  (click)="toggleFieldTextType()">
+                  <i class="bi" [ngClass]="{
+                      'bi-eye-slash-fill': !fieldTextType,
+                      'bi-eye-fill': fieldTextType
+                    }"></i>
+                </button>
+                <div *ngIf="controlContrasenia.touched && controlContrasenia.hasError('required')"
+                  class="invalid-feedback">
+                  Contraseña es requerida, complete el campo
+                </div>
+              </div>
+
+              <!-- Nota sobre la contraseña -->
+              <p class="text-white" style="font-size: 0.9rem;">
+                Ingrese una contraseña de 8 o más caracteres
+              </p>
+
+              <!-- Botón para cambiar contraseña -->
+              <div class="d-grid gap-2 mt-4">
+                <button type="submit" class="btn btn-chocolate px-4 py-2 rounded-pill" [disabled]="!formulario.valid">
+                  <i class="bi bi-arrow-repeat me-2"></i>Cambiar Contraseña
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </div>

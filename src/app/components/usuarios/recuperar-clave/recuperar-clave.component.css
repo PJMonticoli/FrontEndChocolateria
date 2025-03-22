@@ -1,128 +1,131 @@
 .fondo {
-    background-image: url("/assets/img/password.jpg");
-    background-size: 100% 100%;
+    background-image: url("/assets/img/home.webp");
+    background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
     width: 100%;
-    height: auto;
     min-height: 95vh;
+    padding: 30px 0;
   }
   
   .titulo {
     font-family: "Lora", serif;
     font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.5);
   }
-  .btn {
-    display: inline-block;
-    padding: 4px 10px 4px;
-    margin-bottom: 0;
-    font-size: 13px;
-    line-height: 18px;
-    color: #333333;
-    text-align: center;
-    text-shadow: 0 1px 1px rgba(255, 255, 255, 0.75);
-    vertical-align: middle;
-    background-color: #f5f5f5;
-    background-image: -moz-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -ms-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -webkit-gradient(
-      linear,
-      0 0,
-      0 100%,
-      from(#ffffff),
-      to(#e6e6e6)
-    );
-    background-image: -webkit-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: -o-linear-gradient(top, #ffffff, #e6e6e6);
-    background-image: linear-gradient(top, #ffffff, #e6e6e6);
-    background-repeat: repeat-x;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr=#ffffff, endColorstr=#e6e6e6, GradientType=0);
-    border-color: #e6e6e6 #e6e6e6 #e6e6e6;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-    border: 1px solid #e6e6e6;
-    -webkit-border-radius: 4px;
-    -moz-border-radius: 4px;
-    border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    -moz-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.05);
-    cursor: pointer;
+  
+  .bg-chocolate {
+    background-color: rgba(40, 25, 18, 0.85);
+    border: 1px solid rgba(99, 54, 33, 0.5);
   }
-  .btn:hover,
-  .btn:active,
-  .btn.active,
-  .btn.disabled,
-  .btn[disabled] {
-    background-color: #e6e6e6;
+  
+  .chocolate-gradient {
+    background: linear-gradient(to right, #5c3624, #8b5a2b);
+    border-bottom: 3px solid #d4a76a;
   }
-  .btn-large {
-    padding: 9px 14px;
-    font-size: 15px;
-    line-height: normal;
-    -webkit-border-radius: 5px;
-    -moz-border-radius: 5px;
-    border-radius: 5px;
+  
+  .chocolate-input {
+    background-color: rgba(30, 20, 15, 0.7) !important;
+    color: #f1e5d9 !important;
+    border: 1px solid rgba(138, 90, 60, 0.5) !important;
+    transition: all 0.3s ease;
   }
-  .btn:hover {
-    color: #333333;
-    text-decoration: none;
-    background-color: #e6e6e6;
-    background-position: 0 -15px;
-    -webkit-transition: background-position 0.1s linear;
-    -moz-transition: background-position 0.1s linear;
-    -ms-transition: background-position 0.1s linear;
-    -o-transition: background-position 0.1s linear;
-    transition: background-position 0.1s linear;
+  
+  .chocolate-input:focus {
+    background-color: rgba(40, 25, 18, 0.8) !important;
+    border-color: #d4a76a !important;
+    box-shadow: 0 0 0 0.25rem rgba(212, 167, 106, 0.25) !important;
   }
-  .btn-primary,
-  .btn-primary:hover {
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    color: #ffffff;
+  
+  .text-chocolate-light {
+    color: #d4a76a !important;
   }
-  .btn-primary.active {
-    color: rgba(255, 255, 255, 0.75);
+  
+  .btn-chocolate {
+    background-color: #8b5a2b;
+    border-color: #8b5a2b;
+    color: #fff;
+    transition: all 0.3s ease;
   }
-  .btn-primary {
-    background-color: #4a77d4;
-    background-image: -moz-linear-gradient(top, #6eb6de, #4a77d4);
-    background-image: -ms-linear-gradient(top, #6eb6de, #4a77d4);
-    background-image: -webkit-gradient(
-      linear,
-      0 0,
-      0 100%,
-      from(#6eb6de),
-      to(#4a77d4)
-    );
-    background-image: -webkit-linear-gradient(top, #6eb6de, #4a77d4);
-    background-image: -o-linear-gradient(top, #6eb6de, #4a77d4);
-    background-image: linear-gradient(top, #6eb6de, #4a77d4);
-    background-repeat: repeat-x;
-    filter: progid:dximagetransform.microsoft.gradient(startColorstr=#6eb6de, endColorstr=#4a77d4, GradientType=0);
-    border: 1px solid #3762bc;
-    text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.4);
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2),
-      0 1px 2px rgba(0, 0, 0, 0.5);
+  
+  .btn-chocolate:hover, .btn-chocolate:focus {
+    background-color: #6b4423;
+    border-color: #6b4423;
+    color: #fff;
   }
-  .btn-primary:hover,
-  .btn-primary:active,
-  .btn-primary.active,
-  .btn-primary.disabled,
-  .btn-primary[disabled] {
-    filter: none;
-    background-color: #4ea15c;
+  
+  .btn-chocolate-secondary {
+    background-color: #5c3624;
+    border-color: #5c3624;
+    color: #fff;
+    transition: all 0.3s ease;
   }
-  .btn-block {
-    width: 100%;
-    display: block;
+  
+  .btn-chocolate-secondary:hover, .btn-chocolate-secondary:focus {
+    background-color: #482b1d;
+    border-color: #482b1d;
+    color: #fff;
   }
-  .container.align-center {
-    max-width: 400px;
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  
+  .form-floating label {
+    opacity: 0.9;
   }
+  
+  .form-floating>.form-control:focus~label,
+  .form-floating>.form-control:not(:placeholder-shown)~label {
+    transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+    opacity: 1;
+  }
+  
+  .invalid-feedback {
+    color: #e9c5b7;
+    font-weight: 500;
+  }
+  
+  .card {
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5) !important;
+  }
+  
+  .password-toggle {
+    background-color: transparent;
+    color: #d4a76a;
+    border: none;
+    z-index: 10;
+    box-shadow: none !important;
+  }
+  
+  .password-toggle:hover {
+    color: #fff;
+    background-color: rgba(212, 167, 106, 0.2);
+  }
+  
+  .form-floating {
+    position: relative;
+  }
+  
+  .form-floating .form-control {
+    height: auto;
+    padding: 1rem 2.5rem 0.5rem 1rem;
+  }
+  
+  .form-floating > label {
+    opacity: 0.9;
+    pointer-events: none;
+  }
+  
+  .form-floating>.form-control:focus~label,
+  .form-floating>.form-control:not(:placeholder-shown)~label {
+    transform: scale(0.85) translateY(-0.75rem) translateX(0.15rem);
+    opacity: 1;
+  }
+  .chocolate-input.pe-5 {
+    padding-right: 3rem !important;
+  }
+  @media (max-width: 767px) {
+    .card-body {
+      padding: 1rem;
+    }
+  }
+  
+  
