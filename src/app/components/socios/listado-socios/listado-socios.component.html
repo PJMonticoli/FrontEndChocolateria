@@ -58,7 +58,7 @@
                   <app-baja-usuario ngClass="ms-2" [idUsuario]="s.idUsuario" (onEliminado)="cargarTabla()"
                     [deshabilitado]="!s.idUsuario || s.fechaBaja == null"></app-baja-usuario>
                   <button class="btn btn-success bi bi-pencil ms-2" [routerLink]="['/socio/nuevo', s.id]">
-                    Editar
+
                   </button>
                 </td>
               </tr>
