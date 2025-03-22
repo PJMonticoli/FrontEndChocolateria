@@ -61,4 +61,28 @@ export class ListadoProductosComponent implements OnInit, OnDestroy {
       this.search=buscar.toLowerCase().normalize('NFD').toLowerCase()
       .replace(/([^n\u0300-\u036f]|n(?!\u0303(?![\u0300-\u036f])))[\u0300-\u036f]+/gi,"$1");
   }
+
+  toggleEstadoProducto(p: Producto) {
+    this.subscription.add(
+      this.servicioProducto.toggleEstado(p.id, !p.activo).subscribe({
+        next: (res) => {
+          Swal.fire({
+            title: 'Listo',
+            text: `El estado del producto ${p.nombre} ha sido actualizado.`,
+            icon: 'success'
+          });
+          this.cargarTabla();
+        },
+        error: (err) => {
+          Swal.fire({
+            title: 'Error',
+            text: `No se pudo actualizar el estado del producto: ${err}`,
+            icon: 'error'
+          });
+        }
+      })
+    );
+  }
+  
+
 }

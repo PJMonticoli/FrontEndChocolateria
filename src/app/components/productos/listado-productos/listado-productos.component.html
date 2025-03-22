@@ -13,15 +13,17 @@
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Buscar producto" #txtSearch
                 (keyup)="onSearchProduct(txtSearch.value)">
-              <span class="input-group-text bg-secondary text-white"><i class="bi bi-search"></i></span>
+              <span class="input-group-text bg-secondary text-white">
+                <i class="bi bi-search"></i>
+              </span>
             </div>
           </div>
           <div class="col-md-6 text-md-end mt-3 mt-md-0">
             <button class="btn btn-secondary rounded-pill me-2" (click)="prevPage()">
               <i class="bi bi-arrow-left-circle me-1"></i>
             </button>
-            <button class="btn btn-secondary rounded-pill" (click)="nextPage()" [disabled]="(listado | filtro: page : search ).length < 5 ||
-                    (listado | filtro: page+5 : search).length === 0">
+            <button class="btn btn-secondary rounded-pill" (click)="nextPage()" [disabled]="(listado | filtro:page :search ).length < 5 ||
+                                (listado | filtro:page+5 :search).length === 0">
               <i class="bi bi-arrow-right-circle ms-1"></i>
             </button>
           </div>
@@ -36,31 +38,43 @@
                 <th scope="col">Precio</th>
                 <th scope="col">Puntos Ganados</th>
                 <th scope="col">Stock</th>
+                <th scope="col">Estado</th>
                 <th scope="col" class="text-center">Imagen</th>
                 <th scope="col" class="text-center">Acciones</th>
               </tr>
             </thead>
             <tbody>
-              <tr *ngFor="let p of listado |filtro:page :search">
-                <td class="align-middle">{{p.nombre}}</td>
-                <td class="align-middle">{{p.precio | currency:'EUR':'symbol':'1.2-2'}}</td>
-                <td class="align-middle">{{p.puntosGanados}}</td>
+              <tr *ngFor="let p of listado | filtro:page :search">
+                <td class="align-middle">{{ p.nombre }}</td>
+                <td class="align-middle">{{ p.precio | currency:'EUR':'symbol':'1.2-2' }}</td>
+                <td class="align-middle">{{ p.puntosGanados }}</td>
                 <td class="align-middle">
                   <span
-                    [ngClass]="p.stock > 10 ? 'badge bg-success' : (p.stock > 0 ? 'badge bg-warning text-dark' : 'badge bg-danger')">
-                    {{p.stock ? p.stock : '0'}}
+                    [ngClass]="p.stock > 50 ? 'badge bg-success' : (p.stock > 0 ? 'badge bg-warning text-dark' : 'badge bg-danger')">
+                    {{ p.stock ? p.stock : '0' }}
+                  </span>
+                </td>
+                <!-- Nueva columna para el estado -->
+                <td>
+                  <span [ngClass]="p.activo ? 'badge bg-success' : 'badge bg-danger'">
+                    {{ p.activo ? 'Activo' : 'Inactivo' }}
                   </span>
                 </td>
                 <td class="text-center">
-                  <img src="http://localhost:3000/{{ p.urlImagen ? p.urlImagen : 'uploads/'+rutaImgDefault}}"
+                  <img src="http://localhost:3000/{{ p.urlImagen ? p.urlImagen : 'uploads/' + rutaImgDefault }}"
                     class="img-thumbnail rounded" style="width: 50px; height: 50px; object-fit: cover;">
                 </td>
                 <td class="text-center">
                   <div class="btn-group">
-                    <button class="btn btn-outline-info btn-sm" [routerLink]="['/producto/nuevo',p.id]">
+                    <!-- Botón para editar el producto -->
+                    <button class="btn btn-outline-info btn-sm" [routerLink]="['/producto/nuevo', p.id]">
                       <i class="bi bi-pencil-fill me-1"></i>
                     </button>
-                    <app-baja-producto ngClass="ms-2" [producto]="p" (onEliminado)="cargarTabla()"></app-baja-producto>
+                    <!-- Botón para alternar el estado (activo/inactivo) -->
+                    <button type="button" class="btn btn-outline-chocolate btn-sm ms-2"
+                      (click)="toggleEstadoProducto(p)">
+                      <i class="bi" [ngClass]="p.activo ? 'bi-toggle-on' : 'bi-toggle-off'"></i>
+                    </button>
                   </div>
                 </td>
               </tr>
@@ -70,8 +84,10 @@
 
         <!-- Indicador de resultados -->
         <div class="text-end text-light mt-2">
-          <small>Mostrando {{(listado | filtro:page :search).length}} de {{(listado | filtro:0 :search).length}}
-            resultados</small>
+          <small>
+            Mostrando {{ (listado | filtro:page :search).length }} de {{ (listado | filtro:0 :search).length }}
+            resultados
+          </small>
         </div>
       </div>
     </div>

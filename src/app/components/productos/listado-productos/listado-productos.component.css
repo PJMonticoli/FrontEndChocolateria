@@ -82,3 +82,14 @@
   transform: scale(1.1);
   box-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
 }
+
+
+.btn-outline-chocolate {
+  background-color: #9b7239;
+  border-color: #9b7239;
+}
+
+.btn-outline-chocolate:hover {
+  background-color: #8a632c;
+  transform: translateY(-3px);
+}

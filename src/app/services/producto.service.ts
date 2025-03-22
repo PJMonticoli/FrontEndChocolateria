@@ -152,5 +152,14 @@ export class ProductoService {
     return this.http.post<ResultadoGenerico>(this.API_URL + 'reportePromedio', body, requestOptions);
   }
   
+  toggleEstado(id: number, nuevoEstado: boolean): Observable<ResultadoGenerico> {
+    let auth_token = localStorage.getItem('token');
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${auth_token}`
+    });
+    const requestOptions = { headers: headers };
+    return this.http.put<ResultadoGenerico>(`${this.API_URL}estado`, { id, activo: nuevoEstado }, requestOptions);
+  }
   
 }
