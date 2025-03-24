@@ -1,64 +1,120 @@
-<button class="btn btn-secondary rounded mt-3" style="min-height: 200px; max-width: 350px;" 
-[disabled]="producto.stock <1 || producto.disponible==false || disabled" data-bs-toggle="modal" attr.data-bs-target="#modal{{modalId}}">
-  <div style="max-width: 320px;">
-    <div class="row p-1">
-      <div class="col-8 text-start">
-        <p class="m-0 fs-5 text fw-semibold">{{producto.nombre}}</p>
-        <p class="text-muted m-0 fs-6 text" style="min-height: 36px;">{{producto.descripcion}}</p>
-        <p *ngIf="producto.disponible" class=" m-0"><strong>$ {{producto.precio}}</strong></p>
-        <p *ngIf="producto.stock<1 ? producto.disponible : !producto.disponible" class=" m-0 text-danger"><strong>NO DISPONIBLE</strong></p>
-    </div>
-    <div class="col-4 d-flex align-items-center">
-      <img src="http://localhost:3000/{{ producto.urlImagen ? producto.urlImagen : 'uploads/'+rutaImgDefault }}" 
-      class="img-fluid rounded ms-2"  alt="{{ producto.nombre }}"
-      style="width: 200px; height: 120px;"
-      >
-    </div>
-    </div>
+<div class="product-card mb-4">
+  <div class="card bg-chocolate text-chocolate-light border-0 shadow rounded-4 overflow-hidden">
+    <button class="btn w-100 h-100 p-0 text-start border-0"
+      [disabled]="producto.stock < 1 || producto.disponible == false || disabled" data-bs-toggle="modal"
+      attr.data-bs-target="#modal{{modalId}}">
+
+      <div class="card-content p-3">
+        <div class="row g-0 align-items-center">
+          <div class="col-8 pe-3">
+            <h5 class="m-0 fw-bold text-truncate">{{producto.nombre}}</h5>
+            <p class="small mt-1 mb-2 text-light-emphasis" style="min-height: 40px;">
+              {{producto.descripcion}}
+            </p>
+
+            <div class="d-flex justify-content-between align-items-center mt-2">
+              <div *ngIf="producto.disponible" class="precio">
+                $ {{producto.precio}}
+              </div>
+
+
+              <div *ngIf="producto.stock < 1 || !producto.disponible" class="badge bg-danger">
+                NO DISPONIBLE
+              </div>
+
+              <div *ngIf="producto.stock > 0 && producto.disponible" class="stock">
+                Stock: {{producto.stock}}
+              </div>
+            </div>
+          </div>
+
+          <div class="col-4 d-flex align-items-center justify-content-center">
+            <div class="product-image-container rounded">
+              <img [src]="'http://localhost:3000/' + (producto.urlImagen || 'uploads/' + rutaImgDefault)"
+                alt="{{producto.nombre}}" class="img-fluid rounded shadow-sm"
+                style="width: 100%; height: 120px; object-fit: cover;">
+            </div>
+          </div>
+        </div>
+      </div>
+    </button>
   </div>
-</button>
+</div>
 
+<!-- Modal del producto -->
+<div class="modal fade" [id]="'modal'+modalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 1130px;">
+    <div class="modal-content">
+      <div class="modal-header chocolate-gradient text-light">
+        <h4 class="modal-title fw-bold" id="exampleModalLabel">{{producto.nombre}}</h4>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
 
-
-  <!-- Ventana Modal -->
-  <div class="modal fade" [id]="'modal'+modalId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" style="max-width: 1130px;">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h4 class="modal-title" id="exampleModalLabel">{{producto.nombre}}</h4>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div class="col-5 zoom-img" >
-                    <img src="http://localhost:3000/{{ producto.urlImagen ? producto.urlImagen : rutaImgDefault }}" class="img-fluid rounded ms-2"  alt="{{ producto.nombre }}">
-                </div>
-                <div class="col-7 px-5">
-                    <p class="fs-4">{{producto.descripcion}}</p>
-                    <div class="mb-3">
-                      <label [for]="'comentarios'+modalId" class="form-label">Comentarios</label>
-                      <textarea class="form-control" [id]="'comentarios'+modalId" rows="3" [formControl]="gestorComentarios"></textarea>
-                    </div>
-                </div>
+      <div class="modal-body p-4">
+        <div class="row g-4">
+          <div class="col-lg-5 col-md-6">
+            <div class="zoom-img rounded overflow-hidden shadow">
+              <img [src]="'http://localhost:3000/' + (producto.urlImagen || rutaImgDefault)"
+                class="img-fluid w-100 h-100 object-fit-cover" alt="{{ producto.nombre }}">
             </div>
-              
-        </div>
-        <div class="modal-footer">
-            <span class="text-muted fw-semibold">
-              Stock disponible {{producto.stock}}
-            </span>
-            <span class="text-muted">
-              Cantidad: 
-            </span>
-            <div class="input-group border-secondary me-5" style="max-width: 150px;">
-                <button class="btn btn-danger" (click)="modificoCantidad(false)"><strong>-</strong></button>
-                <span class="input-group-text">{{cantidad}}</span>
-                <button class="btn btn-success" (click)="modificoCantidad(true)"><strong>+</strong></button>
+          </div>
+
+          <div class="col-lg-7 col-md-6">
+            <div class="product-details h-100 d-flex flex-column">
+              <div class="description mb-3">
+                <h5 class="mb-3 fw-semibold">Descripción</h5>
+                <p class="fs-5 lh-base text-secondary">{{producto.descripcion}}</p>
+              </div>
+
+              <div class="comentarios-container flex-grow-1 mb-4">
+                <label [for]="'comentarios'+modalId" class="form-label fw-semibold">Comentarios especiales</label>
+                <textarea class="form-control chocolate-input" [id]="'comentarios'+modalId" rows="3"
+                  placeholder="Indique aquí instrucciones especiales para su pedido..."
+                  [formControl]="gestorComentarios"></textarea>
+              </div>
+
+              <div class="price-info mt-auto">
+                <div class="alert alert-light border p-2">
+                  <strong class="fs-4 text-chocolate-accent">$ {{producto.precio}}</strong>
+                </div>
+              </div>
             </div>
-            <button type="button" class="bi bi-basket btn btn-primary" (click)="agregar()" data-bs-dismiss="modal"> Agregar al Carrito</button>
-            <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="limpiarModal()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer justify-content-between">
+        <div class="stock-info d-flex align-items-center">
+          <span class="badge rounded-pill" [ngClass]="{
+              'bg-success': producto.stock > 10,
+              'bg-warning text-dark': producto.stock <= 10 && producto.stock > 0,
+              'bg-danger': producto.stock <= 0
+            }">
+            Stock: {{producto.stock}}
+          </span>
+        </div>
+
+        <div class="d-flex align-items-center gap-3">
+          <span class="fw-semibold">Cantidad: </span>
+          <div class="input-group quantity-selector" style="width: 150px;">
+            <button class="btn btn-outline-secondary" (click)="modificoCantidad(false)" [disabled]="cantidad <= 1">
+              <i class="bi bi-dash"></i>
+            </button>
+            <span class="input-group-text bg-white fw-bold border-secondary">{{cantidad}}</span>
+            <button class="btn btn-outline-secondary" (click)="modificoCantidad(true)"
+              [disabled]="cantidad >= producto.stock">
+              <i class="bi bi-plus"></i>
+            </button>
+          </div>
+
+          <button type="button" class="btn btn-success px-4" (click)="agregar()" data-bs-dismiss="modal">
+            <i class="bi bi-basket me-2"></i>Agregar
+          </button>
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal" (click)="limpiarModal()">
+            Cancelar
+          </button>
         </div>
       </div>
     </div>
   </div>
-  
+</div>

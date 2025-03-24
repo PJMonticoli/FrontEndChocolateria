@@ -1,99 +1,131 @@
 <div class="fondo">
-    <div class="container-fluid px-3">
-        <div class="row">
-            <div [ngClass]="mostrarPedido ? 'col-lg-9 col-md-6 col-sm-12 py-5' : 'col-lg-12 col-md-12 col-sm-12 py-5'">
-                <h1 class="text-center text-uppercase titulo">Productos</h1> <br>
-                <div class="container">
-                    <div class="row">
-                        <div class="col-lg-4 col-md-12 col-sm-12">
-                            <div class="input-group mb-2 ms-3">
-                                <input type="text" class="form-control" placeholder="Buscar producto" (keyup)="onSearchProduct($event)">
-                                <span class="input-group-text"><i class="bi bi-search"></i></span>
+    <div class="container-fluid px-4 py-4">
+        <div class="row g-4">
+            <!-- Left section - Products -->
+            <div [ngClass]="mostrarPedido ? 'col-lg-9 col-md-7 col-sm-12' : 'col-lg-12 col-md-12 col-sm-12'">
+                <div class="products-container bg-white bg-opacity-90 rounded-3 shadow-sm p-4">
+                    <h1 class="text-center text-uppercase titulo border-bottom pb-3 mb-4">Nuestros Chocolates</h1>
+
+                    <div class="container">
+                        <div class="row g-3 mb-4">
+                            <!-- Search bar -->
+                            <div class="col-lg-4 col-md-12 col-sm-12">
+                                <div class="input-group shadow-sm">
+                                    <span class="input-group-text bg-white"><i class="bi bi-search"></i></span>
+                                    <input type="text" class="form-control" placeholder="Buscar producto"
+                                        (keyup)="onSearchProduct($event)">
+                                </div>
+
+                            </div>
+
+                            <!-- Price filters -->
+                            <form [formGroup]="formulario" class="col-lg-8 col-md-12 col-sm-12">
+                                <div class="row g-2">
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </span>
+                                            <input type="number" class="form-control" placeholder="Precio mínimo"
+                                                formControlName="precioMin"
+                                                [class.is-invalid]="controlPrecioMin.touched && controlPrecioMin.hasError('required')">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-6 col-sm-12">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-light">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </span>
+                                            <input type="number" class="form-control" placeholder="Precio máximo"
+                                                formControlName="precioMax"
+                                                [class.is-invalid]="controlPrecioMax.touched && controlPrecioMax.hasError('required')">
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-12 col-sm-12">
+                                        <div class="d-grid gap-2">
+                                            <button class="btn btn-primary" (click)="filtrar()">
+                                                <i class="bi bi-funnel me-2"></i>Filtrar
+                                            </button>
+                                            <button class="btn btn-outline-danger" *ngIf="flagFiltro"
+                                                (click)="limpiarFiltro()">
+                                                <i class="bi bi-x-circle me-2"></i>Eliminar filtro
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Products grid with categories toggle -->
+                    <div class="container overflow-auto product-grid py-2" style="max-height: 600px;">
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+                            <div class="col"
+                                *ngFor="let p of productos | filtroAltaPedido: search : precioMin : precioMax">
+                                <app-elemento-producto [modalId]="p.id" [producto]="p"
+                                    (onAgregar)="agregarDetalle($event)" [disabled]="estaAgregado(p)">
+                                </app-elemento-producto>
                             </div>
                         </div>
-                        <form [formGroup]="formulario" class="col-lg-8 col-md-12 col-sm-12">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="input-group mb-2 ms-3">
-                                        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-                                        <input type="number" class="form-control" placeholder="minimo"
-                                            formControlName="precioMin"
-                                            [class.is-invalid]="controlPrecioMin.touched && controlPrecioMin.hasError('required')"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-6 col-sm-12">
-                                    <div class="input-group mb-2 ms-3">
-                                        <span class="input-group-text"><i class="bi bi-currency-dollar"></i></span>
-                                        <input type="number" class="form-control" placeholder="maximo"
-                                            formControlName="precioMax"
-                                            [class.is-invalid]="controlPrecioMax.touched && controlPrecioMax.hasError('required')"
-                                        >
-                                    </div>
-                                </div>
-                                <div class="col-lg-4 col-md-12 col-sm-12">
-                                    <div class="input-group mb-2">
-                                        <button class="btn btn-primary ms-3 w-100" style="color: black;" (click)="filtrar()">Filtrar por precio</button>
-                                    </div>
-                                    <div class="input-group mb-2">
-                                        <button class="btn btn-outline-danger ms-3 w-100" *ngIf="flagFiltro" (click)="limpiarFiltro()">Eliminar filtro</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>                        
                     </div>
                 </div>
-                
-                
-                     
-            <div class="container overflow-auto d-flex justify-content-evenly flex-wrap" style="max-height: 500px;">  
-                <app-elemento-producto *ngFor="let p of productos | filtroAltaPedido: search : precioMin : precioMax" [modalId]="p.id" [producto]="p"
-                    (onAgregar)="agregarDetalle($event)" [disabled]="estaAgregado(p)"></app-elemento-producto>
             </div>
-        </div>   
-    
-            <!-- Lado lateral derecho alta pedido -->
-            <div class="col-lg-3 col-md-6 col-sm-12 py-5" *ngIf="mostrarPedido==true">
-                <div class="container-fluid">                
-                    <div class="row">
-                        <h1 class="text-center text-uppercase titulo">Pedido</h1>
-                    </div>  
-                    <div class="row">
+
+            <!-- Right side - Cart Summary -->
+            <div class="col-lg-3 col-md-5 col-sm-12" *ngIf="mostrarPedido==true">
+                <div class="order-summary">
+                    <h2 class="titulo text-center border-bottom pb-2 mb-4">Su Pedido</h2>
+
+                    <div class="cart-items overflow-auto mb-4" style="max-height: 320px;">
                         <ol class="list-group">
                             <li *ngFor="let d of pedido.detalles"
-                                class="list-group-item d-flex justify-content-between align-items-start">
-                                <span class="badge align-self-center bg-brown rounded-pill">{{d.cantidad}}x</span>
+                                class="list-group-item d-flex justify-content-between align-items-start mb-2 border rounded shadow-sm">
+                                <span class="badge bg-brown rounded-pill me-2">{{d.cantidad}}x</span>
                                 <div class="ms-2 me-auto">
-                                    <div class="fw-bold">{{d.producto.nombre}}</div>
-                                    ${{d.producto.precio * d.cantidad}}
+                                    <div class="fw-bold text-truncate" style="max-width: 180px;">{{d.producto.nombre}}
+                                    </div>
+                                    <div class="price-tag">$ {{d.producto.precio * d.cantidad}}</div>
                                 </div>
-                                <button class="btn btn-close align-self-center ms-2" (click)="quitarDetalle(d)"></button>
+                                <button class="btn btn-sm btn-outline-danger ms-2" (click)="quitarDetalle(d)">
+                                    <i class="bi bi-trash"></i>
+                                </button>
                             </li>
-                            <li class="list-group-item d-flex justify-content-between align-items-start"
-                                [ngClass]="(cantidadTotal > 50) ? 'list-group-item-danger' : 'list-group-item-brown' ">
-                                <div class="ms-2 me-auto">
-                                    <div class="fw-bold">TOTAL: ${{montoTotal}}</div>
-                                </div>
-                                <p class="m-0">Items: {{cantidadTotal}} / 50</p>
-                            </li>
-                            <div class="text-danger" *ngIf="(cantidadTotal > 50)">
-                                <p>
-                                    Se excedió el limite de 50 productos
-                                </p>
-                            </div>
                         </ol>
-                        <div class="row">
-                            <div class="container-fluid p-0">
-                                <div class="mb-3 mt-5">
-                                    <label for="observaciones" class="form-label text-uppercase fw-semibold">Observaciones</label>
-                                    <textarea class="form-control" id="observaciones" rows="2"
-                                        [formControl]="controlObservaciones"></textarea>
-                                </div> <br>
-                                <button class="btn btn-primary btn-block btn-large text-uppercase fw-semibold text-reset" [disabled]="cantidadTotal > 50"
-                                    (click)="guardarPedido()">Enviar Pedido</button>
+                    </div>
+
+                    <!-- Order total -->
+                    <div class="order-total p-3 mb-4 rounded-3"
+                        [ngClass]="(cantidadTotal > 50) ? 'bg-danger bg-opacity-10' : 'list-group-item-brown' ">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <div class="fw-bold fs-4">Total: <span class="price-tag">$ {{montoTotal}}</span></div>
+                            <div class="quantity-badge">
+                                <span class="badge rounded-pill"
+                                    [ngClass]="(cantidadTotal > 50) ? 'bg-danger' : 'bg-brown'">
+                                    {{cantidadTotal}} / 50
+                                </span>
                             </div>
                         </div>
+                        <div class="text-danger mt-2" *ngIf="(cantidadTotal > 50)">
+                            <p class="m-0">
+                                <i class="bi bi-exclamation-triangle-fill me-2"></i>
+                                Se excedió el limite de 50 productos
+                            </p>
+                        </div>
                     </div>
+
+                    <!-- Order notes -->
+                    <div class="mb-4">
+                        <label for="observaciones" class="form-label fw-semibold">OBSERVACIONES</label>
+                        <textarea class="form-control" id="observaciones" rows="3"
+                            placeholder="Instrucciones especiales para su pedido..."
+                            [formControl]="controlObservaciones"></textarea>
+                    </div>
+
+                    <!-- Order button -->
+                    <button class="btn btn-primary btn-block btn-large fw-semibold py-3"
+                        [disabled]="cantidadTotal > 50 || cantidadTotal === 0" (click)="guardarPedido()">
+                        <i class="bi bi-send me-2"></i>ENVIAR PEDIDO
+                    </button>
                 </div>
             </div>
         </div>
